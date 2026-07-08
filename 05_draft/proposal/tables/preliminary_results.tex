@@ -1,0 +1,23 @@
+\providecommand{\estcell}[2]{\begin{tabular}[c]{@{}c@{}}#1\\(#2)\end{tabular}}
+
+\begin{table}[H]
+\caption{China Source Response}
+\label{tab:china-source-response}
+\centering
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.24\textwidth}>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X}
+\toprule
+Model & Natural graphite & Antimony metal & Bismuth metal & Tungstates/APT \\
+\midrule
+Average China source effect & \estcell{-30.1*}{-1.77} & \estcell{-86.7***}{-5.75} & \estcell{-74.4***}{-3.61} & \estcell{-15.2}{-0.41} \\
+China exposure & \estcell{-0.364***}{-4.06} & \estcell{-0.179}{-0.47} & \estcell{-0.584}{-1.55} & \estcell{-0.363***}{-2.71} \\
+Switching pressure & \estcell{0.191}{1.04} & \estcell{-0.078}{-0.23} & \estcell{-0.195}{-0.44} & \estcell{0.156}{1.17} \\
+Compression pressure & \estcell{-0.218**}{-2.02} & \estcell{-0.128}{-0.80} & \estcell{-0.593**}{-1.97} & \estcell{-0.183}{-0.83} \\
+\bottomrule
+\end{tabularx}
+\caption*{\footnotesize Notes: The average China source effect is reported as a percent effect from the PPML coefficient. Other rows report pressure interaction coefficients from the preferred quarterly production-\(A\) China source specifications. Parentheses report \(t\)-statistics computed from reported standard errors. Stars use reported \(p\)-values: * \(p<0.10\), ** \(p<0.05\), *** \(p<0.01\). Standard errors are clustered by reporter code.}
+\endgroup
+\end{table}

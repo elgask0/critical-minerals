@@ -1,0 +1,25 @@
+\begin{table}[H]
+\centering
+\caption{Late-reporting and reported-only robustness for HS 282580 antimony
+oxides. ``Truncated'' re-estimates the source-split PPML triple difference on
+months through the stated cutoff. ``Reported-only'' drops reporter--product--
+months with no canonical world record instead of filling them with zero.
+Reporter-clustered $p$-values are conditional diagnostics. Source:
+\texttt{term\_late\_reporting\_ppml\_hs282580.csv} and
+\texttt{term\_reported\_only\_ppml\_hs282580.csv}.}
+\label{tab:late_reporting}
+\footnotesize
+\begin{tabular}{llrrrrr}
+\toprule
+Sample & Through & Effect (\%) & Reporter $p$ & Pretrend $p$ & $N$ & Dropped (sep.) \\
+\midrule
+Baseline (zero-filled) & 2026-03 & $-81.5$ & $0.002$ & $0.680$ & 33344 & 3544 \\
+Truncated              & 2025-12 & $-79.6$ & $0.003$ & $0.675$ & 32572 & 3044 \\
+Truncated              & 2025-09 & $-75.0$ & $0.007$ & $0.666$ & 31640 & 2704 \\
+Truncated              & 2025-06 & $-67.5$ & $0.021$ & $0.656$ & 30612 & 2460 \\
+Reported-only          & 2026-03 & $-81.7$ & $0.002$ & $0.628$ & 29836 & 0 \\
+Reported-only          & 2025-12 & $-79.8$ & $0.003$ & $0.622$ & 29142 & 0 \\
+Reported-only          & 2025-09 & $-75.2$ & $0.006$ & $0.615$ & 28300 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}

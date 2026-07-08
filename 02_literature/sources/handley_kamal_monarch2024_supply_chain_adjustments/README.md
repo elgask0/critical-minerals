@@ -1,0 +1,3 @@
+# handley_kamal_monarch2024_supply_chain_adjustments
+
+Project source folder for `handley_kamal_monarch2024_supply_chain_adjustments`.

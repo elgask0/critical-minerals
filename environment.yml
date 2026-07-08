@@ -1,0 +1,18 @@
+name: critical-minerals
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - pandas
+  - numpy
+  - statsmodels
+  - scipy
+  - matplotlib
+  - jupyter
+  - ipykernel
+  - openpyxl
+  - requests
+  - pip:
+      - pymupdf
+      - pyfixest==0.40.1

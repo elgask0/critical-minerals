@@ -1,0 +1,28 @@
+\begin{table}[H]
+\centering
+\caption{Main source-\emph{split} PPML triple-difference results. The
+dependent variable is monthly bilateral import value in USD. The reported
+effect is $100(\exp\hat\beta-1)$ for the
+\textit{Treated}$\times$\textit{China}$\times$\textit{Post} interaction,
+with standard errors clustered by reporter. ``Exact rank $p$'' is the
+exact product-assignment rank $p$-value over the four possible
+single-product assignments (floor $1/4=0.25$); reporter-clustered
+$p$-values are conditional diagnostics, not product-level assignment
+inference (Section~\ref{sec:inference}). ``Pretrend $p$'' is the joint
+$p$-value of the pre-period event-time coefficients. Source:
+\texttt{thesis\_ppml\_results.csv}, \texttt{thesis\_event\_pretrend\_tests.csv}.}
+\label{tab:main_ddd}
+\footnotesize
+\begin{tabular}{llrrrrl}
+\toprule
+HS-6 & Product & Effect (\%) & Reporter $p$ & Exact rank $p$ & Pretrend $p$ & Assessment \\
+\midrule
+2504 & Natural graphite & $-30.4$ & $0.107$ & $0.250$ & $0.020$ & Suggestive \\
+811292 & Unwrought other-metals bundle & $+19.3$ & $0.365$ & $0.250$ & $<0.001$ & No aggregate negative effect \\
+282560 & GeO$_2$/ZrO$_2$ & $+17.5$ & $0.271$ & $0.250$ & $0.260$ & No aggregate negative effect \\
+8110 & Antimony metal & $-86.8$ & $<0.001$ & $0.250$ & $<0.001$ & Consistent; pretrends fail \\
+261710 & Antimony ores/conc. & $-98.9$ & $0.003$ & $0.250$ & $<0.001$ & Descriptive only \\
+282580 & Antimony oxides & $-81.5$ & $0.002$ & $0.250$ & $0.680$ & Central result \\
+\bottomrule
+\end{tabular}
+\end{table}

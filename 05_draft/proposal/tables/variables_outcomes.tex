@@ -1,0 +1,26 @@
+\begin{table}[htbp]
+\caption{Main Outcomes and Pressure Variables}
+\label{tab:variables_outcomes}
+\centering
+\begingroup
+\small
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}X}
+\toprule
+Block & Measure & Construction \\
+\midrule
+Primary trade outcome & Import value & U.S. dollar import value by importer, product, source, and time. Monthly records are aggregated to quarters for the preferred baseline. \\
+Source margins & China imports; rest of world imports; total imports & China and non-China import values are separated, then summed to measure total importer-product imports. \\
+Quantity robustness & Net weight & Reported net weight where complete case coverage is credible. \\
+Exposure & China exposure & Importer's China share before treatment, measured within each product. \\
+Outside access & Outside supplier access & Capped ratio of imports from other suppliers to imports from China before treatment. \\
+External availability & Production availability & Product-level USGS production scale term multiplied by rest of world production diversity. \\
+Pressure measures & Replacement feasibility, switching pressure, compression pressure, raw China pressure & Replacement feasibility combines outside access and production availability. Switching pressure is exposed demand with replacement feasibility. Compression pressure is exposed demand with limited replacement feasibility. \\
+Timing variables & Treatment, China source, post indicators, event-time indicators & Treatment follows official control scope. Timing anchors include announcement, implementation, import effect, and first full quarter after implementation. \\
+Price outcome & Price wedge & Log international price relative to the Chinese domestic benchmark after harmonizing grade, unit, currency, location, and quotation basis. \\
+\bottomrule
+\end{tabularx}
+\caption*{\footnotesize Notes: Pressure variables use trade primitives measured before the policy and product-level production availability. Switching pressure and compression pressure add to China exposure, so their coefficients are diagnostic gradients rather than independent structural parameters.}
+\endgroup
+\end{table}

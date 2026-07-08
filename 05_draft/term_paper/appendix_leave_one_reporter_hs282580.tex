@@ -1,0 +1,27 @@
+\begin{table}[H]
+\centering
+\caption{Leave-one-reporter-out influence for HS 282580 antimony
+oxides. Each row drops one of the 53 reporters and re-estimates the
+source-split PPML triple difference. Reporter-clustered $p$-values
+are conditional diagnostics. Source:
+\texttt{term\_leave\_one\_reporter\_hs282580.csv}.}
+\label{tab:loro}
+\footnotesize
+\begin{tabular}{lr}
+\toprule
+Statistic & Value \\
+\midrule
+Baseline effect & $-81.5\%$ \\
+Min LOO effect & $-84.4\%$ \\
+Max LOO effect & $-63.6\%$ \\
+Median LOO effect & $-81.6\%$ \\
+LOO still $< -50\%$ & 53/53 \\
+LOO still $< -75\%$ & 52/53 \\
+Failed models & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\smallskip
+\footnotesize Dropping the reporter that most strengthens the
+effect is reporter \texttt{380.0}; dropping reporter \texttt{842.0} most weakens it. The effect stays negative and below $-50\%$ in every leave-one-out permutation.

@@ -1,0 +1,698 @@
+% =====================================================================
+%  When Do China's Critical-Mineral Export Controls Bind?
+%  Evidence from Graphite, Gallium-Germanium, and Antimony
+%  Course: Introduction to China's Foreign Trade and Investment (ZJU)
+%  All numerical results are reproduced by 04_scripts/analysis_thesis.py.
+%  Upload flat to Overleaf: main.tex, t1-t8.tex, references.bib
+% =====================================================================
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[round,authoryear,sort]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\onehalfspacing
+\setlength{\parindent}{1.5em}
+\captionsetup{font=small,labelfont=bf,justification=justified}
+
+\title{\bfseries When Do China's Critical-Mineral Export Controls Bind?\\[4pt]
+\large\normalfont Evidence from Graphite, Gallium--Germanium, and Antimony}
+\author{Mario D. Martinez\\[2pt]
+\small Student ID: 22501254\\
+\small Master in Chinese Economy --- Zhejiang University\\
+\small Course: Introduction to China's Foreign Trade and Investment}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+Between 2023 and 2024 China placed gallium, germanium, graphite, and antimony
+under export-licensing rules. Because a license is not an export ban, whether
+these controls actually reduced imports from China is an empirical question. I
+build a monthly importer--product--source panel from UN Comtrade for
+2019--2026 (53 reporting countries, 10 products) and estimate a Poisson
+pseudo-maximum-likelihood source-share triple difference: a binding control
+should lower China-source imports of a treated product relative to imports from
+the rest of the world and relative to untreated products. The effects are
+selective. Antimony oxides show a clean, persistent relative decline of about
+81\%, concentrated among importers that were exposed to China and already had
+other suppliers. Antimony metal and graphite point the same way but are less
+clean; antimony ores are too thinly traded to read; and the aggregate
+gallium--germanium trade codes show no decline. China's controls bind---but
+only for some products and some importers, so diversification policy should be
+chosen product by product rather than read off the legal announcement.
+\end{abstract}
+
+\medskip
+\noindent\textbf{Keywords:} China; export controls; critical minerals; foreign
+trade policy; antimony; graphite; gallium; germanium; PPML; supply chains.
+
+\newpage
+\tableofcontents
+\newpage
+
+% ============================ 1. INTRODUCTION ========================
+\section{Introduction}\label{sec:intro}
+
+\subsection{Motivation}
+
+China mines and, more importantly, processes most of the minerals that sit at
+the base of chips, batteries, optics, and defense goods
+\citep{iea_2025_global_critical_minerals_outlook}. From July 2023 to September
+2024 it placed four of them---gallium, germanium, graphite, and antimony---under
+export-licensing requirements, citing the 2020 Export Control Law and national
+security \citep{prc_2020_export_control_law}. The Ministry of Commerce (MOFCOM)
+and the General Administration of Customs (GAC) issued the rules; the measures
+arrived inside the same technology rivalry in which the United States had
+already restricted semiconductor exports to China
+\citep{bown-2020-howunitedstates, bown2024semiconductors}.
+
+The key fact for an importer is that these are \emph{licensing} regimes, not
+automatic export bans. MOFCOM publicly stated that compliant applications for
+gallium and germanium, for graphite, and for antimony were being approved or
+reviewed \citep{mofcom_2023_gallium_germanium_approvals,
+mofcom_2024_graphite_approvals, mofcom_2024_antimony_license_review}. A license
+can bind tightly, bind loosely, or work mainly as a signal. Which of these
+happened is a question about trade flows, not something that follows from the
+announcement.
+
+This is also a new object for the study of economic statecraft. Most empirical
+work on weaponized interdependence examines the \emph{demand} side, where the
+United States restricts access to chips, software, or dollar clearing
+\citep{bown-2020-howunitedstates, bown2024semiconductors}. Mineral export
+controls are the \emph{supply} side: they restrict physical materials whose
+production and processing are geographically concentrated and take years to
+replicate elsewhere. The same legal instrument---an export license issued on
+national-security grounds---should therefore bind very differently across
+products, depending on China's share, on how cleanly the controlled item maps to
+a trade code, and on whether importers can find other suppliers. That
+heterogeneity is the object of this paper.
+
+\subsection{Research question}
+
+This paper asks: \emph{when do China's licensing-based critical-mineral export
+controls reduce importers' reliance on China, and how do product scope and
+importer adjustment capacity shape the answer?} The question is narrower than
+``did the controls work?''. I look for trade-flow patterns consistent with a
+binding, China-specific licensing wedge. I do not estimate enforcement
+intensity, license-denial rates, inventories, coercive success, welfare, or
+strategic intent---none of which the data can see.
+
+\subsection{Contribution and main findings}
+
+The contribution is an empirical, product-level test of measures that are
+usually discussed only qualitatively. Using a source-share triple-difference
+design on importer--product--source--month data, I find selective effects. The
+central case is antimony oxides (Harmonized System code HS~282580): China-source
+imports fall about 81\% relative to rest-of-world (ROW) imports and to untreated
+products, the pre-trend is clean, and the decline deepens over the following
+year. The effect is concentrated among high switching-potential importers---those
+exposed to China who also had other suppliers---where the relative fall is about
+87\%, while low-potential importers show no decline. Antimony metal (HS~8110) is
+directionally consistent but has poor pre-trends; antimony ores (HS~261710) are
+too thinly traded to interpret; natural graphite (HS~2504) is suggestive only;
+and the aggregate gallium--germanium codes (HS~811292, HS~282560) show no
+detectable decline. These nulls are informative: they reject the idea that every
+controlled product mechanically collapses.
+
+I am deliberately cautious about statistics. Treatment is assigned at the
+product--month level, so with one treated and three untreated products in each
+comparison, exact product-level inference cannot reach a $p$-value below 0.25.
+Reporter-clustered $p$-values are reported as conditional diagnostics, not as
+definitive assignment tests \citep{roth2022pretest}.
+
+\subsection{Paper structure}
+
+Section~2 reviews the literature and states the gap. Section~3 describes the
+data. Section~4 sets out a simple licensing-wedge framework. Section~5 gives the
+empirical strategy. Section~6 reports the results. Section~7 draws narrow policy
+implications, and Section~8 concludes.
+
+% ======================= 2. LITERATURE REVIEW ========================
+\section{Literature Review}\label{sec:lit}
+
+\subsection{Economic statecraft and chokepoints}
+
+The conceptual anchor is the weaponized-interdependence research program.
+\citet{farrellnewman-2019-weaponizedinterdependencehow} argue that global
+economic networks are not neutral: states that sit at central nodes can turn
+that position into coercive capacity. Their later book extends the argument to
+the financial and digital infrastructure of the modern world economy
+\citep{farrell2023underground_empire}. The mechanism is general---network
+concentration plus jurisdictional control---but the empirical work it inspired
+has focused almost entirely on the \emph{demand} side, where the United States
+and its partners restrict access to technology and finance. The U.S.
+semiconductor controls are the canonical case: \citet{bown-2020-howunitedstates}
+shows how tariffs, entity-list actions, and export restrictions pulled the chip
+industry into the trade war, and \citet{bown2024semiconductors} frame the same
+conflict as a clash of industrial policies in which export controls are a core
+tool. China's mineral measures are the supply-side mirror: they restrict
+physical materials rather than designs or software, and they rest on geological
+and processing concentration that is far slower to reverse. Recent work on
+quantifying economic coercion stresses that the size of such effects must be
+measured, not assumed \citep{eggeretal-2024-analyzingeffectseconomic}.
+
+\subsection{Critical-mineral supply chains}
+
+A separate literature explains why the same legal instrument should bind
+unevenly across minerals. Supply is concentrated. The International Energy
+Agency places antimony, gallium, germanium, and natural graphite among the most
+concentrated critical minerals \citep{iea_2025_global_critical_minerals_outlook},
+and the U.S.\ Geological Survey records China's dominant share of each
+\citep{usgs_2026_antimony, usgs_2026_gallium, usgs_2026_germanium,
+usgs_2026_graphite_natural}. Supply is also rigid in a specific way: gallium and
+germanium are byproduct metals whose output tracks alumina and zinc, not their
+own prices, so they respond sluggishly to a licensing shock
+\citep{frenzel2017byproduct_metals}. Antimony adds a different rigidity, because
+its processing, recycling, and substitution options are narrow
+\citep{vandenbrink2022antimony_resilience, xu2025antimony_material_flow}, while
+graphite's risk runs through the battery-anode processing chain rather than
+through mining alone \citep{park2025graphite_supply_chain}. Two implications
+follow for this paper. First, mineral export controls are structurally unlike
+tariffs, financial sanctions, or technology bans, because adjustment requires
+new mines and refineries on multi-year horizons. Second, heterogeneous effects
+across products are theoretically expected, not surprising: the same license
+should bind most where China's share is high, where the controlled item maps
+cleanly onto a trade code, and where importers lack alternative sources.
+
+One precedent sits in the background. The 2010 China--Japan rare-earth episode is
+the clearest earlier case of a mineral being used as a foreign-policy instrument,
+and it is often cited as evidence that mineral concentration translates into
+coercive capacity. But it was a single event aimed at one country and lasting
+weeks, whereas the 2023--2024 measures are open-ended licensing regimes that
+apply to all importers and span several minerals. The precedent motivates the
+question; it cannot answer it. Contemporary commentary on the 2023--2024
+controls has been largely qualitative and forward-looking, and the supply-chain
+literature describes vulnerability rather than realized trade responses.
+
+\subsection{Gap}
+
+What is missing is systematic, product-level evidence on whether and where these
+specific Chinese controls actually shifted sourcing. Existing commentary on the
+2023--2024 measures is qualitative or forward-looking; the concentration and
+byproduct literature describes vulnerability but not realized trade responses;
+and the one clear precedent, the 2010 rare-earth episode, is a single event
+rather than a comparison across products. This paper fills that gap with a
+quasi-experimental trade-flow test that treats the same licensing instrument
+across several minerals and asks where it binds.
+
+% ============================ 3. DATA ================================
+\section{Data}\label{sec:data}
+
+\subsection{UN Comtrade source-split panel}\label{sec:comtrade}
+
+The main panel is built from monthly bilateral imports reported to United
+Nations (UN) Comtrade, from January 2019 through March 2026 (87 months) for 53
+reporting countries and ten products. For each reporter--product--month I keep
+only the canonical aggregate record (partner2 code 0, customs code C00,
+mode-of-transport and mode-of-shipment codes 0). This matters because the raw
+files also contain world totals, bilateral partners, customs breakdowns, and
+transport-mode breakdowns, and summing these double-counts trade. The balanced
+country--product panel has $53\times10\times87=46{,}110$ rows; the
+China/ROW source panel has 92,220 rows.
+
+For each reporter--product--month I split imports into a China source (partner
+156) and a ROW source (all other partners). The outcome is monthly trade value
+in U.S.\ dollars; net weight is incomplete for several products and is used only
+as a descriptive check. The three untreated control products---alumina
+(HS~2818), manganese articles (HS~8111), and other inorganic acids (HS~2811)---are
+large, regularly traded, and unaffected by any 2023--2024 licensing measure,
+which is what a donor pool needs.
+
+\subsection{Treatment chronology and product scope}\label{sec:chronology}
+
+Table~\ref{tab:chronology} gives the three country-neutral licensing episodes
+that define treatment. For the empirical work I date the post-period at the
+\emph{expected import-effect month}, roughly one month after exporter
+implementation, to allow a shipping lag. The three antimony headings are kept
+separate because they sit at different value-chain stages (ores, metal, oxides)
+and differ sharply in how regularly they are traded; pooling them would mix very
+different responses.
+
+A recurring issue is that the legal product scope is narrower than the
+six-digit HS codes available in trade data, so the mapping from law to data is
+imperfect. The gallium and germanium controls illustrate the extreme case: in
+Comtrade, unwrought gallium and germanium are bundled with indium, vanadium, and
+niobium under HS~811292, only two of which are controlled, and germanium dioxide
+is bundled with zirconium dioxide under HS~282560. The controlled items are
+therefore a fraction of trade in their headings, which mechanically pushes any
+negative effect toward zero. The antimony oxide heading (HS~282580) is better,
+because the controlled high-purity oxide dominates the heading even though the
+legal scope is purity-thresholded. Graphite splits cleanly into a natural
+heading (HS~2504, a good match for the controlled flake items) and an
+artificial-graphite heading (HS~3801) that is only partially treated; I use
+HS~2504 as the treated graphite product and treat HS~3801 as descriptive, never
+as a placebo. Table~\ref{tab:products} summarizes the mapping and each
+product's role.
+
+\input{t1_chronology}
+\input{t2_products}
+
+\subsection{Coverage and regularity}\label{sec:coverage}
+
+Table~\ref{tab:coverage} reports coverage for the six treated products. The
+contrast between antimony oxides (HS~282580), with China value in 45\% of cells
+and 43 active China importers before announcement, and antimony ores
+(HS~261710), with China value in under 2\% of cells and only 12 active
+importers, already signals that these two headings cannot play the same
+evidentiary role. Sparse headings produce extreme coefficients that carry little
+information.
+
+\input{t3_coverage}
+
+\subsection{Switching-potential measures}\label{sec:switchingdata}
+
+For each importer--product pair I measure pre-announcement China exposure and
+ROW access, and combine them into a switching-potential index
+$A_{ik}=E_{ik}\times O_{ik}$, where $E_{ik}$ is the pre-period China share of
+the importer's imports of product $k$ and $O_{ik}$ is the share of pre-period
+months with any ROW import. $A_{ik}$ is high only when an importer was both
+exposed to China and already buying from elsewhere. It is an observed proxy for
+switching potential, not a true outside option. Reporters with no pre-trade are
+excluded from the switching split but kept in the main analysis. The diagnostic
+is revealing: for antimony oxides, 50 of 53 reporters have pre-trade and the
+median $A_{ik}$ is 0.16; for antimony ores, 19 reporters have no pre-trade and
+the median is zero.
+
+\subsection{Eurostat CN8 case study}\label{sec:eurostatdata}
+
+To probe the gallium--germanium aggregation problem I use Eurostat Comext at the
+eight-digit Combined Nomenclature (CN8) level. Within the HS~811292 bundle I
+separate unwrought gallium and germanium (controlled) from unwrought indium and
+vanadium (not controlled), which serve as within-bundle comparators. The cleaned
+panel is balanced for the current 27-member European Union (EU27): 27 countries,
+four products, 72 months. It is sparse at the country--month level, so it is a
+measurement case study, not a primary result.
+
+% ====================== 4. THEORETICAL FRAMEWORK =====================
+\section{Theoretical Framework}\label{sec:framework}
+
+\subsection{A licensing-wedge model of sourcing}\label{sec:model}
+
+The model is deliberately simple and reduced-form. Consider an importer $i$ that
+buys product $k$ in month $t$ either from China ($M^{C}_{ikt}$) or from the rest
+of the world ($M^{R}_{ikt}$). When a licensing control takes effect, buying from
+China becomes more costly or less certain. I summarize all of that---delay, denial
+risk, paperwork, uncertainty, reduced availability---in a single latent wedge
+$W_{kt}\geq 0$. The wedge is the mechanism through which a legal rule becomes a
+real restriction; it is not observed directly.
+
+The wedge lowers the ratio of China-source to ROW-source imports. As a
+conceptual expression, write the log of that ratio as
+\begin{equation}
+\ln\!\left(\frac{M^{C}_{ikt}}{M^{R}_{ikt}}\right)
+= \alpha_{ik} + \lambda_{t} - W_{kt} + u_{ikt},
+\label{eq:wedge}
+\end{equation}
+where $\alpha_{ik}$ is a fixed importer--product sourcing pattern, $\lambda_t$ is
+a common time effect, and $u_{ikt}$ is noise. Equation~\eqref{eq:wedge} is
+intuition only: bilateral trade has many zeros and is strongly heteroskedastic,
+so estimation cannot take logs directly and uses PPML instead
+\citep{santossilva2006gravity}. But it states the identifying idea cleanly---a
+larger wedge means a smaller China-to-ROW ratio.
+
+\subsection{Testable predictions}\label{sec:predictions}
+
+The model gives three predictions that the data can test.
+
+\paragraph{Sign.} If the control binds, then $W_{kt}>0$ after the policy, and the
+China-source share of the treated product falls. In the PPML triple difference of
+Section~5 this is a negative coefficient on the
+treated$\times$China$\times$post interaction:
+\begin{equation}
+W_{kt}>0 \;\Longrightarrow\; \beta_{k}<0.
+\label{eq:sign}
+\end{equation}
+The converse is not symmetric. A zero or positive $\beta_k$ does \emph{not} mean
+the policy was irrelevant: routine license approvals, trade codes that bundle
+controlled with uncontrolled items, rerouting, stockpiling, offsetting demand
+shocks, or slow adjustment can all hide a wedge at the code level. So a clean
+negative effect is a sufficient but not necessary sign of binding.
+
+\paragraph{Magnitude.} Under PPML, $\beta_k$ has a direct proportional reading.
+The implied change in the China-source share of product $k$ is
+\begin{equation}
+\text{percent change in China-source share} = 100\cdot\bigl(e^{\beta_k}-1\bigr).
+\label{eq:magnitude}
+\end{equation}
+For the main case, antimony oxides, $\beta=-1.69$, so the model implies an
+$81.5\%$ relative fall. The evaluation step is then to ask whether a fall of that
+size is consistent with what actually happened to China, ROW, and total imports,
+and whether it reflects source switching (China down, ROW and total up) or pure
+compression (total down too).
+
+\paragraph{Cross-section (who adjusts).} Not every importer should respond the
+same way. Define an importer's pre-announcement China exposure and ROW access as
+\begin{equation}
+E_{ik}=\frac{\sum_{t<A_k} M^{C}_{ikt}}
+              {\sum_{t<A_k} M^{C}_{ikt}+\sum_{t<A_k} M^{R}_{ikt}},
+\qquad
+O_{ik}=\frac{\#\{t<A_k: M^{R}_{ikt}>0\}}{\#\{t<A_k\}},
+\qquad
+A_{ik}=E_{ik}\times O_{ik},
+\label{eq:switching}
+\end{equation}
+where $A_k$ is the announcement month. $A_{ik}$ is high only when an importer was
+both exposed to China and already buying from elsewhere; it is an observed
+switching-potential proxy, not a true outside option. The model predicts the
+negative China-source effect should be concentrated among high-$A_{ik}$
+importers---those who both needed to adjust and could.
+
+A concrete example makes this tangible. Suppose an importer bought most of its
+antimony oxide from China before the control and also bought small amounts from
+European recyclers. When the license bites, the Chinese shipment is delayed or
+denied, so the importer expands its European orders. Its total need for antimony
+oxide may not change, but the \emph{share} bought from China falls---China down,
+ROW up---which is exactly what the triple difference measures. An importer with
+no European supplier simply loses supply and consumes less. The first importer
+has high $A_{ik}$; the second has low $A_{ik}$. The cleanest relative decline
+should sit in the first group.
+
+\subsection{Scope: what the model is not}\label{sec:scope}
+
+The model is reduced-form and the wedge is latent, so $\beta_k$ identifies only
+the \emph{combined} effect of the license on the China-source share. It does not
+identify the wedge level, the license-denial probability, enforcement intensity,
+inventories, strategic intent, or welfare. Those would require a structural model
+of licensing and supplier behavior that the data and the small number of treated
+products cannot support, and that the project rules set aside for a master's
+thesis. The evaluation below is therefore at the level of sign, magnitude, and
+cross-section---a disciplined test of whether the reduced-form model organizes
+the evidence, not a structural calibration.
+
+% ======================= 5. EMPIRICAL STRATEGY =======================
+\section{Empirical Strategy}\label{sec:strategy}
+
+\subsection{PPML source-share triple difference}\label{sec:ddd}
+
+The main estimator is a Poisson pseudo-maximum-likelihood (PPML) triple
+difference (DDD) on the importer--product--source--month panel
+\citep{santossilva2006gravity}. PPML is used because bilateral trade has many
+zeros and strong heteroskedasticity, which bias the log-linear alternative. For
+importer $i$, product $p$, source $s$, and month $t$,
+\begin{equation}
+\mathbb{E}[M_{ipst}\mid X]=
+\exp\!\left[\beta\,(\mathit{Treated}_{p}\times \mathit{China}_{s}\times \mathit{Post}_{kt})
++\Gamma_{ip}+\Gamma_{is}+\Gamma_{pt}+\Gamma_{st}+\Gamma_{ps}+\Gamma_{it}\right].
+\label{eq:ppml}
+\end{equation}
+The six pairs of fixed effects absorb importer--product scale, importer--source
+relationships, product--month global shocks, source--month common shocks, average
+product--source differences, and importer--month demand. The coefficient of
+interest is $\beta$ on the triple interaction. It asks: did the China-source
+share of the treated product change after the control, relative to the same
+source comparison for the three untreated products? For each treated product the
+estimation stack contains that product and the three controls (HS~2818, HS~8111,
+HS~2811), and $\mathit{Post}_{kt}$ turns on at the expected import-effect month
+in Table~\ref{tab:chronology}. Because treatment effects are likely
+heterogeneous, I use this high-dimensional fixed-effects triple difference
+rather than a simple two-way-fixed-effects design
+\citep{dechaisemartindhaultfoeuille-2020-twowayfixedeffects}.
+
+\subsection{Event studies and the switching split}\label{sec:eventstudies}
+
+I replace the static interaction with event-time interactions to check pre-trends
+and dynamics. Good pre-period coefficients should be near zero, and post-period
+effects should appear after the expected import-effect month and then persist or
+deepen. To avoid a long, noisy string of monthly coefficients, adjacent months
+are binned (for example, months 4--6 and 7--12), with a pre-period window as the
+omitted baseline. Because pre-trend tests can mislead in both directions, I read
+them as one diagnostic among several, not as a gate \citep{roth2022pretest}. For
+the mechanism I split reporters with pre-trade into high- and low-$A_{ik}$
+groups at the median and re-estimate Equation~\eqref{eq:ppml} in each group. If
+source switching drives the result, the negative effect should sit in the
+high-$A_{ik}$ group. I also report a raw before/after comparison of China, ROW,
+and total imports to separate switching from compression.
+
+\subsection{Inference}\label{sec:inference}
+
+Inference is the binding constraint. Treatment is assigned at the
+product--month level: every importer faces the same rule for a given product, so
+the 53 reporters give outcome variation but not 53 independent policy shocks.
+With one treated and three control products, the minimum exact
+product-assignment $p$-value is $1/(1+3)=0.25$. I therefore report
+reporter-clustered $p$-values only as conditional diagnostics and weight the
+\emph{joint pattern}---sign, timing, persistence, and heterogeneity---more than
+any single $p$-value. A descriptive exporter interrupted time series (ITS) with
+heteroskedasticity- and autocorrelation-consistent (HAC) standard errors is used
+only as a timing check, not as a causal design.
+
+The practical consequence is important for reading the results. A large negative
+estimate with a small reporter-clustered $p$-value is not, by itself, a
+causally identified effect of the license; it is a conditional summary of one
+product relative to three controls. The case for a binding wedge rests instead
+on whether several independent signals line up---a clean pre-trend, a sharp
+break at the expected import-effect month, persistence or deepening over the
+post-period, and concentration of the effect in the importers the framework
+predicts. Where those signals line up, as for antimony oxides, the reading is
+strong; where they conflict, the reading is correspondingly weak.
+
+% ============================ 6. RESULTS =============================
+\section{Results}\label{sec:results}
+
+\subsection{Product-level source-share effects}\label{sec:productlevel}
+
+Table~\ref{tab:main_ddd} reports the static source-share triple difference for
+each treated product. The pattern is heterogeneous, as the framework predicts.
+The gallium--germanium bundle (HS~811292) and the germanium-dioxide heading
+(HS~282560) show small positive estimates and no decline---consistent with
+code-bundling and byproduct-supply noise. Natural graphite (HS~2504) is negative
+but imprecise ($-30.4\%$, $p=0.107$) and its pre-trend fails. Antimony metal
+(HS~8110) and antimony ores (HS~261710) show large negative point estimates
+($-86.8\%$ and $-98.9\%$) but their pre-trends fail badly, so they cannot carry
+a causal claim alone. The standout is antimony oxides (HS~282580): a relative
+decline of $81.5\%$, a reporter-clustered $p$ of $0.002$, and a joint pre-trend
+$p$ of $0.680$. The next subsections take these cases in order of evidentiary
+strength.
+
+The exporter side is consistent with this timing. A descriptive
+interrupted-time-series check on China-reported exports shows an implementation
+break for the products with a clean importer-side signal, which is reassuring
+about timing but is not a causal design because it has no untreated
+counterfactual. The main evidence therefore comes from the importer-side triple
+difference, where the untreated products provide the comparison.
+
+\input{t4_main_ddd}
+
+\subsection{Main case: antimony oxides}\label{sec:antimonyoxide}
+
+HS~282580 is the central case because it combines a large estimate with clean
+pre-trends and a persistent path. The event-study coefficients in
+Table~\ref{tab:eventstudy} tell the story simply. The pre-period coefficients are
+small and insignificant---what a clean case should look like. After the expected
+import-effect month the estimates turn sharply negative from $-55.4\%$ in month
+one, then steepen to $-71.7\%$ over months 4--6, $-90.2\%$ over months 7--12, and
+$-94.6\%$ from month 13 on. The wedge does not fade; it widens.
+
+\input{t5_eventstudy}
+
+What kind of adjustment is this? Table~\ref{tab:subcompression} compares mean
+monthly imports before and after the expected effect month. For antimony oxides,
+China-source imports fall $27.7\%$ while ROW imports rise $315.2\%$ and total
+imports rise $135.7\%$. The relative China-source decline therefore comes with a
+large rise in non-China sourcing, not with a collapse in overall availability.
+This fits source switching or demand expansion better than pure compression; with
+trade-value data alone I cannot separate the two, and I cannot tell genuine
+non-China production from rerouting.
+
+\input{t7_subcompression}
+
+\subsection{Importer switching-potential mechanism}\label{sec:mechanism}
+
+Table~\ref{tab:switching} reports the switching-potential split. For antimony
+oxides it is the strongest mechanism result in the paper. Among the 25
+high-$A_{ik}$ importers---exposed to China and already buying elsewhere---the
+relative decline is $87.4\%$ ($p<0.001$) with a clean split pre-trend ($p=0.354$).
+Among the 25 low-$A_{ik}$ importers the estimate reverses to $+103.1\%$
+($p=0.035$). This is exactly what source switching predicts: the effect sits
+where importers both needed to adjust and could. Because the high-$A_{ik}$ group
+also has the clean pre-trend while the low-$A_{ik}$ group shows no decline, the
+result is a mechanism, not just an average negative coefficient. I describe this
+case as supporting the source-switching mechanism.
+
+\input{t6_switching}
+
+The split is also informative by failing to rescue the other products. Graphite
+moves the right way in the high-$A_{ik}$ group ($-34.1\%$, $p=0.080$; pre-trend
+$p=0.089$) but only mildly, so it stays suggestive. Antimony metal is
+directionally consistent but both splits fail their pre-trends. Antimony ores are
+not interpretable: the high-$A_{ik}$ estimate is mechanically near $-100\%$ and
+the low-$A_{ik}$ estimate is explosively positive, with failed pre-trends
+throughout---the right conclusion for a heading where 19 of 53 reporters have no
+pre-trade. Aggregate gallium--germanium is not rescued either: HS~811292 and
+HS~282560 show no negative high-$A_{ik}$ effect, and HS~282560 is a particularly
+clean null because its high-$A_{ik}$ pre-trend is acceptable ($p=0.267$) yet the
+estimate is essentially zero.
+\subsection{Graphite, gallium--germanium, and antimony caveats}\label{sec:caveats}
+
+Graphite (HS~2504) is consistent with a weaker or noisier wedge: the full-sample
+estimate is negative but imprecise, the pre-trend fails, and the high-$A_{ik}$
+split sharpens it only mildly. Several features plausibly weaken the signal: the
+policy is framed as an adjustment of an older regime rather than a wholly new
+one, the legal scope is narrower than the code, and battery-anode demand was
+rising fast before December 2023 \citep{park2025graphite_supply_chain,
+usgs_2026_graphite_natural}. Graphite is suggestive, not confirming.
+
+The aggregate gallium--germanium headings are meaningful nulls rather than
+failures. HS~811292 bundles the controlled metals with uncontrolled indium,
+vanadium, and niobium; HS~282560 bundles germanium dioxide with zirconium
+dioxide; and both metals are byproducts whose supply tracks the host metal
+\citep{frenzel2017byproduct_metals, usgs_2026_gallium, usgs_2026_germanium}. A
+negative licensing signal is therefore attenuated and confounded, and the
+positive full-sample estimates are best read as ``not detected at this level of
+aggregation,'' not as ``no effect on the controlled items.'' These nulls are
+useful precisely because they rule out a uniform collapse story.
+
+The antimony family shows why pooling is wrong. Antimony metal is consistent with
+a broader disruption---the estimate is large and negative and the substitution
+diagnostic shows China imports falling while ROW imports jump---but its
+pre-trends fail in both splits, so it is consistent with the framework, not a
+clean case.
+Antimony ores are descriptive only: trade is so sparse that the $-98.9\%$
+estimate is driven by a handful of cells. Keeping the three headings separate is
+what makes it visible that the binding-wedge evidence is concentrated in oxides.
+
+\subsection{Eurostat CN8 case study}\label{sec:eurostat}
+
+Does finer disaggregation within HS~811292 recover a gallium or germanium effect?
+Table~\ref{tab:eurostat} says: not clearly. The gallium-versus-indium/vanadium
+estimate is negative ($-59.8\%$), the germanium estimate is positive ($+25.1\%$),
+and the pooled estimate is negative ($-32.7\%$), but all are far from
+conventional significance ($p=0.31$, $0.42$, $0.36$), and the minimum exact
+product-assignment $p$ is $1/3$. CN8 disaggregation moves gallium the way the
+framework predicts, but the panel is too sparse to carry the claim. I use it as a
+measurement case study that argues for caution about code aggregation, not as a
+gallium--germanium finding.
+
+\input{t8_eurostat}
+
+\subsection{How well does the model fit the data?}\label{sec:reading}
+
+The point of writing down the model in Section~4 is to be able to judge it
+against the estimates. The reduced-form licensing-wedge model makes three
+predictions---sign, magnitude, and cross-section---and the data speak to each.
+
+\paragraph{Sign.} The model predicts $\beta_k<0$ where the wedge binds. This
+holds clearly for antimony oxides ($-81.5\%$) and antimony metal ($-86.8\%$),
+weakly for graphite ($-30.4\%$, insignificant), and fails for the two
+gallium--germanium codes ($+19.3\%$, $+17.5\%$). Antimony ores show the right
+sign but the estimate is too unstable to count. So the sign prediction is met
+for the products the model expects to bind (clean code, regular trade) and fails
+where trade-code bundling should attenuate it---which is itself consistent with
+the model's caveat in Equation~\eqref{eq:sign}.
+
+\paragraph{Magnitude.} For antimony oxides the model implies an $81.5\%$
+relative fall in the China-source share (Equation~\ref{eq:magnitude}). The raw
+before/after moves in Table~\ref{tab:subcompression} are consistent with a fall
+of that order: China-source imports drop $27.7\%$ while ROW imports rise
+$315.2\%$ and total imports rise $135.7\%$. A relative China-source decline of
+roughly four-fifths is therefore not an artifact of the regression; it matches a
+real rebalancing of the import mix. The same table also settles the
+switching-versus-compression question the model leaves open: for antimony oxides
+the pattern is unambiguously \emph{switching plus expansion}---China down, ROW
+and total up---not compression of total availability.
+
+\paragraph{Cross-section.} The model predicts the effect concentrates among
+high-$A_{ik}$ importers. For antimony oxides this is the cleanest result in the
+paper: high-$A_{ik}$ importers show an $87.4\%$ relative fall with a clean
+pre-trend, while low-$A_{ik}$ importers show a positive estimate. The cross-section
+prediction is also directionally right for graphite and antimony metal, and it
+cleanly \emph{fails to rescue} the gallium--germanium codes, where even the
+high-$A_{ik}$ group shows no decline. A model that could fit any pattern would be
+uninformative; this one predicts the right cases and is silent or rejected on the
+others.
+
+\paragraph{Verdict.} The reduced-form model organizes the evidence well where it
+is meant to---regularly traded, cleanly coded products exposed importers---and
+its failures are themselves informative, pointing to trade-code bundling and
+sparse trade rather than to a uniformly effective or uniformly toothless policy.
+It is not a structural estimate of the wedge: $\beta_k$ identifies the combined
+effect of the license on the China-source share, not the denial probability or
+the welfare loss, which the data cannot separate.
+
+% ====================== 7. POLICY IMPLICATIONS =======================
+\section{Policy Implications}\label{sec:policy}
+
+The evidence justifies only narrow claims. Four points are earned.
+
+First, distinguish legal announcement from binding disruption. The
+gallium--germanium codes show that a control can be legally in force yet produce
+no detectable aggregate decline, while antimony oxides show a large and
+persistent shift. Risk assessment should track trade flows, not only the policy
+register, and should expect heterogeneous outcomes.
+
+Second, make diversification product- and stage-specific. Antimony ores, metal,
+and oxides behave very differently under the same announcement, so treating
+``antimony'' as one commodity misallocates effort. The binding constraint and the
+feasible substitute differ by value-chain stage.
+
+Third, exposure matters only when alternative capacity exists. The switching
+split shows the antimony-oxide response is concentrated among importers exposed
+to China \emph{and} already buying elsewhere. Exposure alone does not measure
+vulnerability, and access alone does not measure resilience; both must be
+present for observed switching. Stockpiles cushion short friction, but persistent
+restrictions call for processing capacity and supplier development, which take
+longer to build \citep{vandenbrink2022antimony_resilience,
+xu2025antimony_material_flow}.
+
+Fourth, China's coercive capacity is real but not automatic, and a binding
+wedge can also accelerate substitution away from China. The antimony-oxide
+diagnostic shows ROW imports more than tripling after the control. I do not read
+this as coercive success or failure---the data show no strategic intent or
+welfare effects---but it means the same mechanism that reduces China-source
+imports can, over time, erode the concentration that gives the control its force
+\citep{iea_2025_global_critical_minerals_outlook}.
+
+% ========================== 8. CONCLUSION ============================
+\section{Conclusion}\label{sec:conclusion}
+
+China's 2023--2024 controls on gallium, germanium, graphite, and antimony are
+licensing instruments, not export bans, and whether a license binds is an
+empirical question. Using a monthly importer--product--source panel for
+2019--2026 and a PPML source-share triple difference, I find selective and
+heterogeneous responses. Antimony oxides (HS~282580) are the clean case: a
+roughly 81\% relative decline in China-source imports, a clean pre-trend, a path
+that deepens for over a year, and a switching-potential split that isolates the
+effect among exposed importers with other suppliers. Antimony metal is
+consistent with the framework but pre-trend-contaminated; antimony ores are too
+sparse to read; graphite is suggestive; and the aggregate gallium--germanium
+headings show no detectable decline. Together these results are consistent with
+a selective licensing-wedge reading and reject the idea that every controlled
+product collapses.
+
+Two limits should travel with these findings. The design identifies a relative
+China-source effect, not an absolute shortage, and the small number of treated
+products caps inferential precision, so reporter-clustered $p$-values are
+conditional rather than definitive. The framework is also reduced-form: it reads
+trade-flow patterns consistent with a binding wedge, not the structural
+determinants of enforcement.
+
+The lesson for China's foreign trade and investment is that export licensing is
+now a routine trade-policy tool, that its effect must be measured rather than
+inferred from the announcement, and that the relevant differences run along
+product scope, value-chain stage, trade regularity, and importer adjustment
+capacity. The findings also hint at an investment response: persistent controls
+create incentives for alternative mining and refining abroad and for processing
+investment inside China-governed chains, though tracing that is beyond this
+paper. The natural next steps---exact-grade price comparisons and a larger
+product universe once later 2025 measures take effect---are left for a master's
+thesis.
+
+% ========================== REFERENCES ===============================
+\renewcommand{\refname}{References}
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

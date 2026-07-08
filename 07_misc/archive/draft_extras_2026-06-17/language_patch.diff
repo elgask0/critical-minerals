@@ -1,0 +1,114 @@
+--- 05_draft/main.tex
++++ 05_draft/main_corrected.tex
+@@ -44,5 +44,5 @@
+ build a monthly importer--product--source panel from UN Comtrade for
+ 2019--2026 (53 reporting countries, 10 products) and estimate a Poisson
+-pseudo-maximum-likelihood source-share triple difference: a binding control
++pseudo-maximum-likelihood source-split triple difference: a binding control
+ should lower China-source imports of a treated product relative to imports from
+ the rest of the world and relative to untreated products. The effects are
+@@ -114,5 +114,5 @@
+
+ The contribution is an empirical, product-level test of measures that are
+-usually discussed only qualitatively. Using a source-share triple-difference
++usually discussed only qualitatively. Using a source-split triple-difference
+ design on importer--product--source--month data, I find selective effects. The
+ central case is antimony oxides (Harmonized System code HS~282580): China-source
+@@ -329,5 +329,5 @@
+
+ \paragraph{Sign.} If the control binds, then $W_{kt}>0$ after the policy, and the
+-China-source share of the treated product falls. In the PPML triple difference of
++relative China-source import value of the treated product falls. In the PPML triple difference of
+ Section~5 this is a negative coefficient on the
+ treated$\times$China$\times$post interaction:
+@@ -343,7 +343,7 @@
+
+ \paragraph{Magnitude.} Under PPML, $\beta_k$ has a direct proportional reading.
+-The implied change in the China-source share of product $k$ is
++The implied relative change in China-source import value of product $k$ is
+ \begin{equation}
+-\text{percent change in China-source share} = 100\cdot\bigl(e^{\beta_k}-1\bigr).
++\text{percent change in relative China-source import value} = 100\cdot\bigl(e^{\beta_k}-1\bigr).
+ \label{eq:magnitude}
+ \end{equation}
+@@ -384,5 +384,5 @@
+
+ The model is reduced-form and the wedge is latent, so $\beta_k$ identifies only
+-the \emph{combined} effect of the license on the China-source share. It does not
++the \emph{combined} effect of the license on relative China-source import value. It does not
+ identify the wedge level, the license-denial probability, enforcement intensity,
+ inventories, strategic intent, or welfare. Those would require a structural model
+@@ -396,5 +396,5 @@
+ \section{Empirical Strategy}\label{sec:strategy}
+
+-\subsection{PPML source-share triple difference}\label{sec:ddd}
++\subsection{PPML source-split triple difference}\label{sec:ddd}
+
+ The main estimator is a Poisson pseudo-maximum-likelihood (PPML) triple
+@@ -463,7 +463,7 @@
+ \section{Results}\label{sec:results}
+
+-\subsection{Product-level source-share effects}\label{sec:productlevel}
+-
+-Table~\ref{tab:main_ddd} reports the static source-share triple difference for
++\subsection{Product-level source-split effects}\label{sec:productlevel}
++
++Table~\ref{tab:main_ddd} reports the static source-split triple difference for
+ each treated product. The pattern is heterogeneous, as the framework predicts.
+ The gallium--germanium bundle (HS~811292) and the germanium-dioxide heading
+@@ -495,5 +495,5 @@
+ import-effect month the estimates turn sharply negative from $-55.4\%$ in month
+ one, then steepen to $-71.7\%$ over months 4--6, $-90.2\%$ over months 7--12, and
+-$-94.6\%$ from month 13 on. The wedge does not fade; it widens.
++$-94.6\%$ from month 13 on. The relative China-source decline does not fade; it deepens.
+
+ \input{t5_eventstudy}
+@@ -503,5 +503,5 @@
+ China-source imports fall $27.7\%$ while ROW imports rise $315.2\%$ and total
+ imports rise $135.7\%$. The relative China-source decline therefore comes with a
+-large rise in non-China sourcing, not with a collapse in overall availability.
++large rise in non-China sourcing, not with a collapse in total observed import value.
+ This fits source switching or demand expansion better than pure compression; with
+ trade-value data alone I cannot separate the two, and I cannot tell genuine
+@@ -595,5 +595,5 @@
+
+ \paragraph{Magnitude.} For antimony oxides the model implies an $81.5\%$
+-relative fall in the China-source share (Equation~\ref{eq:magnitude}). The raw
++relative fall in China-source import value (Equation~\ref{eq:magnitude}). The raw
+ before/after moves in Table~\ref{tab:subcompression} are consistent with a fall
+ of that order: China-source imports drop $27.7\%$ while ROW imports rise
+@@ -603,5 +603,5 @@
+ switching-versus-compression question the model leaves open: for antimony oxides
+ the pattern is unambiguously \emph{switching plus expansion}---China down, ROW
+-and total up---not compression of total availability.
++and total up---not compression of total observed import value.
+
+ \paragraph{Cross-section.} The model predicts the effect concentrates among
+@@ -620,5 +620,5 @@
+ sparse trade rather than to a uniformly effective or uniformly toothless policy.
+ It is not a structural estimate of the wedge: $\beta_k$ identifies the combined
+-effect of the license on the China-source share, not the denial probability or
++effect of the license on relative China-source import value, not the denial probability or
+ the welfare loss, which the data cannot separate.
+
+@@ -648,5 +648,5 @@
+ xu2025antimony_material_flow}.
+
+-Fourth, China's coercive capacity is real but not automatic, and a binding
++Fourth, China-source supply leverage is visible in some product-source margins, but not uniformly; a binding
+ wedge can also accelerate substitution away from China. The antimony-oxide
+ diagnostic shows ROW imports more than tripling after the control. I do not read
+@@ -662,5 +662,5 @@
+ licensing instruments, not export bans, and whether a license binds is an
+ empirical question. Using a monthly importer--product--source panel for
+-2019--2026 and a PPML source-share triple difference, I find selective and
++2019--2026 and a PPML source-split triple difference, I find selective and
+ heterogeneous responses. Antimony oxides (HS~282580) are the clean case: a
+ roughly 81\% relative decline in China-source imports, a clean pre-trend, a path
+@@ -681,5 +681,5 @@
+
+ The lesson for China's foreign trade and investment is that export licensing is
+-now a routine trade-policy tool, that its effect must be measured rather than
++a recurrent instrument in China's critical-mineral trade policy, that its effect must be measured rather than
+ inferred from the announcement, and that the relevant differences run along
+ product scope, value-chain stage, trade regularity, and importer adjustment

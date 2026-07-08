@@ -1,0 +1,67 @@
+# Local Conda environment
+.conda/
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+# Jupyter
+.venv/
+.env
+# Local assistant/tool state
+.claude/
+# macOS
+.DS_Store
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.nav
+*.snm
+*.vrb
+# Ad hoc generated outputs and scratch space
+tmp/
+results/
+# Literature source payloads: do not track source files or parsed/generated assets by default
+02_literature/sources/*/source*
+02_literature/sources/*/parsed/**
+02_literature/sources/*/assets/**
+# Keep source folder documentation trackable
+!02_literature/sources/*/README.md
+!02_literature/sources/*/metadata.md
+!02_literature/sources/*/notes.md
+!02_literature/sources/*/parsed/README.md
+!02_literature/sources/*/assets/README.md
+!02_literature/sources/*/assets/figures/README.md
+!02_literature/sources/*/assets/tables/README.md
+# Data: do not track datasets by default
+03_data/raw/**
+03_data/interim/**
+03_data/processed/**
+03_data/output/figures/**
+03_data/output/tables/**
+!03_data/raw/README.md
+!03_data/interim/README.md
+!03_data/processed/README.md
+!03_data/output/README.md
+!03_data/output/figures/README.md
+!03_data/output/tables/README.md
+# Final outputs: do not track exported/submitted files by default
+06_output/**
+!06_output/README.md
+!06_output/submitted/
+!06_output/submitted/README.md
+# Proposal/slide build artifacts; keep TeX sources and committed assets.
+05_draft/proposal/*.pdf
+05_draft/proposal/render_audit/**
+06_slides/*.pdf
+06_slides/rendered*/
+# Vault link note
+.project_link

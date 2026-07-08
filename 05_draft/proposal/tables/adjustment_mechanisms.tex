@@ -1,0 +1,21 @@
+\providecommand{\estcell}[2]{\begin{tabular}[c]{@{}c@{}}#1\\(#2)\end{tabular}}
+
+\begin{table}[H]
+\caption{Adjustment Mechanisms}
+\label{tab:adjustment-mechanisms}
+\centering
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.24\textwidth}>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X}
+\toprule
+Mechanism & Natural graphite & Antimony metal & Bismuth metal & Tungstates/APT \\
+\midrule
+Rest of world switching & \estcell{0.342***}{2.59} & \estcell{0.405***}{3.42} & \estcell{0.196}{1.38} & \estcell{0.161}{1.06} \\
+Total import compression & \estcell{-0.165**}{-2.03} & \estcell{0.287}{1.38} & \estcell{-0.134}{-0.66} & \estcell{0.441***}{3.63} \\
+\bottomrule
+\end{tabularx}
+\caption*{\footnotesize Notes: Entries are pressure interaction coefficients from the preferred quarterly production-\(A\) mechanism specifications. Parentheses report \(t\)-statistics computed from reported standard errors. Stars use reported \(p\)-values: * \(p<0.10\), ** \(p<0.05\), *** \(p<0.01\). Standard errors are clustered by reporter code.}
+\endgroup
+\end{table}

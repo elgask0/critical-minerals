@@ -1,0 +1,3 @@
+# bogdanova_wang2023_china_export_restrictions_wto
+
+Project source folder for `bogdanova_wang2023_china_export_restrictions_wto`.

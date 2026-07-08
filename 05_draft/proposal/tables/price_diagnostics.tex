@@ -1,0 +1,20 @@
+\providecommand{\estcell}[2]{\begin{tabular}[c]{@{}c@{}}#1\\(#2)\end{tabular}}
+
+\begin{table}[H]
+\caption{Price Diagnostics}
+\label{tab:price-diagnostics}
+\centering
+\begingroup
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.16}
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.24\textwidth}>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X>{\centering\arraybackslash}X}
+\toprule
+Diagnostic & Natural graphite & Antimony metal & Bismuth metal & Tungstates/APT \\
+\midrule
+Price wedge & \estcell{-0.067*}{-1.84} & \estcell{0.460***}{3.88} & \estcell{0.837***}{6.72} & \estcell{-0.115**}{-2.11} \\
+\bottomrule
+\end{tabularx}
+\caption*{\footnotesize Notes: Entries are log point changes in international prices relative to Chinese domestic benchmarks from the price-wedge diagnostics. Parentheses report \(t\)-statistics computed from reported standard errors. Stars use reported \(p\)-values: * \(p<0.10\), ** \(p<0.05\), *** \(p<0.01\). The source price models use reported HAC(3) standard errors rather than reporter clustering. Price-wedge estimates are diagnostic and do not identify license denials, compression, or welfare effects.}
+\endgroup
+\end{table}

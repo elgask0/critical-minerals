@@ -1,0 +1,3 @@
+# brander_bernauer_huss2023_trade_policy_volatility
+
+Project source folder for `brander_bernauer_huss2023_trade_policy_volatility`.

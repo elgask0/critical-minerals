@@ -1,0 +1,31 @@
+--- 05_draft/t2_products.tex
++++ 05_draft/t2_products.tex (corrected)
+@@ -11,3 +11,3 @@
+ 2504    & Natural graphite                              & Treated; suggestive \\
+-811292  & Ga/Ge/In/V/Nb unwrought bundle               & Treated; null / measurement-sensitive \\
++811292  & Unwrought other-metals bundle (incl. Ga, Ge, In, V, Nb, and others)               & Treated; null / measurement-sensitive \\
+ 282560  & Germanium dioxide / zirconium dioxide         & Treated; null / measurement-sensitive \\
+
+--- 05_draft/t4_main_ddd.tex
++++ 05_draft/t4_main_ddd.tex (corrected)
+@@ -17,3 +17,3 @@
+ 2504   & Natural graphite           & $-30.4$  & $0.107$  & $0.020$ & Suggestive \\
+-811292 & Ga/Ge/In/V/Nb bundle      & $+19.3$  & $0.365$  & $<0.001$ & No aggregate negative effect \\
++811292 & Unwrought other-metals bundle (incl. Ga, Ge, In, V, Nb, and others)      & $+19.3$  & $0.365$  & $<0.001$ & No aggregate negative effect \\
+ 282560 & GeO$_2$/ZrO$_2$           & $+17.5$  & $0.271$  & $0.260$ & No aggregate negative effect \\
+
+--- 05_draft/t6_switching.tex
++++ 05_draft/t6_switching.tex (corrected)
+@@ -15,3 +15,3 @@
+ 2504   & Natural graphite           & $-34.1$ & $0.080$  & $0.089$ & $+34.5$ & $0.623$ & $0.006$ & Suggestive \\
+-811292 & Ga/Ge/In/V/Nb bundle      & $+9.2$  & $0.648$  & $<0.001$ & $+705.4$ & $0.002$ & $<0.001$ & No support \\
++811292 & Unwrought other-metals bundle (incl. Ga, Ge, In, V, Nb, and others)      & $+9.2$  & $0.648$  & $<0.001$ & $+705.4$ & $0.002$ & $<0.001$ & No support \\
+ 282560 & GeO$_2$/ZrO$_2$           & $+1.4$  & $0.905$  & $0.267$ & $+30.2$ & $0.739$ & $<0.001$ & No support \\
+
+--- 05_draft/t7_subcompression.tex
++++ 05_draft/t7_subcompression.tex (corrected)
+@@ -16,3 +16,3 @@
+ 2504   & Natural graphite           & $-21.1$ & $+13.4$  & $-6.4$ \\
+-811292 & Ga/Ge/In/V/Nb bundle      & $+65.5$ & $+30.8$  & $+40.9$ \\
++811292 & Unwrought other-metals bundle (incl. Ga, Ge, In, V, Nb, and others)      & $+65.5$ & $+30.8$  & $+40.9$ \\
+ 282560 & GeO$_2$/ZrO$_2$           & $+19.6$ & $+1.5$   & $+8.1$ \\

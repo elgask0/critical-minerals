@@ -1,0 +1,25 @@
+\begin{table}[H]
+\centering
+\caption{Main source-share PPML triple-difference results. The dependent
+variable is monthly bilateral import value in USD. The reported coefficient is
+the percent effect of the \textit{Treated}$\times$\textit{China}$\times$\textit{Post}
+interaction, with standard errors clustered by reporter. ``Pretrend $p$'' is the
+joint $p$-value of the pre-period event-time coefficients. Reporter-clustered
+$p$-values are conditional diagnostics, not product-level assignment inference
+(Section~\ref{sec:inference}). Source:
+\texttt{thesis\_ppml\_results.csv} and \texttt{thesis\_event\_pretrend\_tests.csv}.}
+\label{tab:main_ddd}
+\footnotesize
+\begin{tabular}{llrrrl}
+\toprule
+HS-6 & Product & Effect (\%) & Reporter $p$ & Pretrend $p$ & Assessment \\
+\midrule
+2504   & Natural graphite           & $-30.4$  & $0.107$  & $0.020$ & Suggestive \\
+811292 & Ga/Ge/In/V/Nb bundle      & $+19.3$  & $0.365$  & $<0.001$ & No aggregate negative effect \\
+282560 & GeO$_2$/ZrO$_2$           & $+17.5$  & $0.271$  & $0.260$ & No aggregate negative effect \\
+8110   & Antimony metal             & $-86.8$  & $<0.001$ & $<0.001$ & Consistent; pretrends fail \\
+261710 & Antimony ores/concentrates & $-98.9$  & $0.003$  & $<0.001$ & Descriptive only \\
+282580 & Antimony oxides            & $-81.5$  & $0.002$  & $0.680$ & Central result \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,31 @@
+\begin{table}[H]
+\centering
+\caption{Event-study coefficients for the main case, HS 282580 antimony
+oxides, from the source-\emph{split} PPML triple difference. The omitted
+baseline is event month \textbf{m3} (three months before the expected
+import-effect month, 2024-10). Months are relative to the expected
+import-effect month. Reporter-clustered $p$-values are conditional
+diagnostics (Section~\ref{sec:inference}). Source:
+\texttt{thesis\_event\_study\_results.csv}.}
+\label{tab:eventstudy}
+\footnotesize
+\begin{tabular}{lrr}
+\toprule
+Event window & Effect (\%) & Reporter $p$ \\
+\midrule
+m13 or earlier           & $-4.1$ & $0.879$ \\
+m12 to m7                & $+7.3$ & $0.745$ \\
+m6 to m4                 & $+6.7$ & $0.744$ \\
+m3 (base)                & \multicolumn{1}{c}{---} & --- \\
+m2                       & $+12.1$ & $0.581$ \\
+m1                       & $+7.6$ & $0.635$ \\
+p0                       & $-8.8$ & $0.722$ \\
+p1                       & $-55.4$ & $0.013$ \\
+p2                       & $-53.7$ & $0.107$ \\
+p3                       & $-58.2$ & $0.061$ \\
+p4 to p6                 & $-71.7$ & $0.029$ \\
+p7 to p12                & $-90.2$ & $<0.001$ \\
+p13 or later             & $-94.6$ & $<0.001$ \\
+\bottomrule
+\end{tabular}
+\end{table}

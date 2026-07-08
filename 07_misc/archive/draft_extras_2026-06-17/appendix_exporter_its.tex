@@ -1,0 +1,25 @@
+\begin{table}[H]
+\centering
+\caption{Descriptive exporter-side interrupted-time-series (ITS) on
+China-reported aggregate exports. \textbf{Descriptive only:} no
+untreated counterfactual; not a causal design. The dependent variable
+is $\ln(1+\text{exports})$; months with no export record are coded as
+zero, which can mechanically depress the $\ln(1+\cdot)$ series for
+late and sparse products. HAC SE with 6 lags. Source:
+\texttt{thesis\_exporter\_its\_results.csv}.}
+\label{tab:exporter_its}
+\footnotesize
+\begin{tabular}{llrrrr}
+\toprule
+HS & Product & Break & Effect (\%) & HAC $p$ & Reported/total mo.\\
+\midrule
+2504 & Natural graphite & 202312 & $-99.7$ & $0.142$ & 72/87 \\
+811292 & Ga/Ge bundle & 202308 & $-89.2$ & $0.587$ & 72/87 \\
+282560 & GeO2/ZrO2 & 202308 & $-91.6$ & $0.513$ & 72/87 \\
+8110 & Antimony metal & 202409 & $-100.0$ & $<0.001$ & 69/87 \\
+261710 & Antimony ores/concentrates & 202409 & $-99.8$ & $0.004$ & 27/87 \\
+282580 & Antimony oxides & 202409 & $-100.0$ & $<0.001$ & 72/87 \\
+3801 & Artificial/colloidal graphite & 202312 & $-99.9$ & $0.151$ & 72/87 \\
+\bottomrule
+\end{tabular}
+\end{table}

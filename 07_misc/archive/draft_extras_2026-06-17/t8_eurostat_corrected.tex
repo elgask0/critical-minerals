@@ -1,0 +1,25 @@
+\begin{table}[H]
+\centering
+\caption{Eurostat CN8 case-study results for gallium and germanium
+within the HS 811292 unwrought bundle, using indium and vanadium as
+within-bundle comparators on the balanced current-EU27 panel (27
+countries, 72 months, 2019-01 to 2024-12). Dependent variable is monthly
+import value in EUR. CN8 codes used: gallium 81129289, germanium
+81129295, indium 81129281, vanadium 81129291. The minimum exact
+product-assignment $p$-value is $1/3\approx 0.333$ for the two
+single-metal comparisons (one treated of three products) and
+$1/6\approx 0.167$ for the pooled comparison (two treated of four).
+Reporter-clustered $p$-values are conditional. Source:
+\texttt{thesis\_ppml\_results.csv}.}
+\label{tab:eurostat}
+\footnotesize
+\begin{tabular}{lrrr}
+\toprule
+Comparison & Effect (\%) & Reporter $p$ & Exact min.\ $p$ \\
+\midrule
+Ga vs In/V               & $-59.8$ & $0.307$ & $0.333$ \\
+Ge vs In/V               & $+25.1$ & $0.419$ & $0.333$ \\
+Pooled Ga/Ge vs In/V     & $-32.7$ & $0.355$ & $0.167$ \\
+\bottomrule
+\end{tabular}
+\end{table}
