@@ -7,8 +7,9 @@ __pycache__/
 # Jupyter
 .venv/
 .env
-# Local assistant/tool state
-.claude/
+# Local assistant/tool state (project skills are shared and tracked)
+.claude/*
+!.claude/skills/
 # macOS
 .DS_Store
 # LaTeX auxiliary files

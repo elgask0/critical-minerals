@@ -98,7 +98,8 @@ The local compile check is for `main.tex`; the user compiles `main_overleaf.tex`
 - `04_scripts/`: download, preparation, and analysis scripts.
 - `05_draft/`: proposal source and archived term-paper source.
 - `06_output/`: exported and submitted files.
-- `07_misc/archive/`: deprecated scripts.
+- `07_misc/`: local-only reference material; `07_misc/archive/` holds
+  superseded scripts, term-paper docs, and old slide sources.
 - `08_admin/proposal_defense/`: ZJU proposal-defense forms, templates,
   screenshots, and formatting rules.
 
