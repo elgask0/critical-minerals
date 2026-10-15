@@ -148,8 +148,8 @@ def rotate_key():
 def fetch_one(hs, yr, rep, fp, max_attempts=2):
     period = PERIODS_BY_YEAR[yr]
     for attempt in range(max_attempts):
-        key = get_key()
         try:
+            key = get_key()
             r = requests.get(
                 BASE,
                 params={
@@ -331,12 +331,19 @@ def main():
         log("Nothing to download!")
         return
 
+    try:
+        ensure_keys()
+    except Exception as e:
+        log(f"CREDENTIAL ERROR: {e}")
+        return
+
     start = time.time()
     last_report = [start]
     report_interval = 30
 
     completed = 0
     total = len(gaps)
+    status_counts = {}
 
     for hs in products:
         items = by_hs.get(hs, [])
@@ -359,7 +366,11 @@ def main():
                 try:
                     status, nrows = fut.result()
                 except Exception as e:
+                    with lock:
+                        stats["errors"] += 1
                     status, nrows = str(e)[:50], 0
+
+                status_counts[status] = status_counts.get(status, 0) + 1
 
                 completed += 1
 
@@ -384,6 +395,14 @@ def main():
     log(f"  Empty (no data): {stats['empty']}")
     log(f"  Errors: {stats['errors']}")
     log(f"  Rate limits: {stats['rate_limits']}")
+    bad_statuses = [
+        (status, count)
+        for status, count in status_counts.items()
+        if status not in {"ok_data", "ok_empty", "no_data"}
+    ]
+    if bad_statuses:
+        for status, count in sorted(bad_statuses, key=lambda item: (-item[1], item[0]))[:5]:
+            log(f"  Status {status}: {count}")
     log(f"{'=' * 70}")
 
     log("\nMerging...")

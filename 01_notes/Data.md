@@ -1,7 +1,7 @@
 ---
 description: "Authoritative data inventory, coverage, source definitions, and remaining acquisition tasks"
 created: 2026-06-04
-modified: 2026-07-07
+modified: 2026-07-13
 group: structure
 tags: [project, critical-minerals, data, comtrade, eurostat, bloomberg, cepii]
 status: active
@@ -471,6 +471,273 @@ roughly 170-250 gaps per day. A pessimistic low-yield path like July 8 would
 stretch the remaining main-universe download time to roughly 30-40 days. The
 next priority is HS 2833, then HS 284610, then HS 280450, and finally HS
 284690.
+
+On July 9, 2026, the automation resumed with the required explicit Python path
+and the mandatory full dry-run audit over the full downloader universe. That
+audit again reported 3,041 total downloader gaps: 1,697 in the main
+31-product acquisition universe and 1,344 in excluded diagnostics HS 380120,
+HS 2827, and broad HS 2617. The live main-universe queue therefore remained HS
+2833 (354), HS 284610 (447), HS 280450 (448), and HS 284690 (448).
+
+The run then attempted to reopen HS 2833 with a conservative one-worker
+50-target chunk. That chunk immediately completed with zero counted API calls,
+zero rows, zero valid no-data responses, and zero logged rate-limit events.
+Its verification pass left HS 2833 unchanged at 111,731 merged rows and 354
+remaining gaps. A direct credential audit then established the real blocker:
+the automation shell had no `COMTRADE_API_KEYS`, `COMTRADE_API_KEY`,
+`COMTRADE_API_KEY_1`, or `COMTRADE_API_KEY_2` in its environment, and
+`04_scripts/comtrade_auth.py` raised `RuntimeError: No Comtrade API key
+configured`.
+
+No products advanced on July 9, and no additional merged rows were created.
+Approximate counted API usage was zero because the downloader never obtained a
+usable key and therefore never reached the Comtrade endpoint. The day did not
+end by true quota exhaustion and did not end by API unreliability. It ended
+because the execution environment was missing Comtrade credentials entirely.
+
+At the unchanged backlog, the optimistic remaining timeline is still about 2
+API days if future runs can actually consume 900-1,000 useful calls. A more
+realistic near-term pace remains about 7-10 days if usable windows close
+roughly 170-250 gaps per day. A pessimistic low-yield path like July 8 would
+still stretch the remaining main-universe download time to roughly 30-40 days.
+The next priority remains HS 2833, then HS 284610, then HS 280450, and
+finally HS 284690, but the automation must restore `COMTRADE_API_KEYS` or
+`COMTRADE_API_KEY_1`/`COMTRADE_API_KEY_2` before any further downloader run can
+spend quota.
+
+Later on July 9, 2026, a follow-up rerun confirmed that the blocker had not
+changed. The standard full dry-run audit still reported 3,041 total downloader
+gaps: 1,697 in the main 31-product acquisition universe and 1,344 in excluded
+diagnostics HS 380120, HS 2827, and broad HS 2617. A second HS 2833 probe used
+`--max-calls 75 --workers 1`, but it again completed with zero counted API
+calls and left HS 2833 unchanged at 111,731 merged rows and 354 remaining
+gaps. Additional checks found no Comtrade credential wiring in the repository,
+`~/.zshrc`, `~/.zprofile`, or recent Codex shell snapshots, so the run again
+ended because credentials were missing entirely, not because of quota
+exhaustion or API unreliability. No products advanced and observed counted API
+usage remained zero. Estimated days left and the next-priority queue are
+therefore unchanged: optimistic about 2 API days, realistic about 7-10 days,
+pessimistic about 30-40 days, with HS 2833 still first, then HS 284610, HS
+280450, and HS 284690 once credentials are restored.
+
+An additional retry later the same day produced the same result. A fresh full
+dry-run audit still reported 3,041 total downloader gaps, and a one-file live
+HS 2833 probe with `--max-calls 1 --workers 1` again finished with zero
+counted API calls, zero rows, zero no-data files, zero errors, and zero
+rate-limit responses. A direct call to `load_comtrade_keys()` still raised
+`RuntimeError: No Comtrade API key configured`, and the shell still lacked
+`COMTRADE_API_KEYS`, `COMTRADE_API_KEY`, `COMTRADE_API_KEY_1`, and
+`COMTRADE_API_KEY_2`. The backlog, ETA range, and next-priority queue are
+therefore unchanged.
+
+Later on July 9, 2026, the credential source was restored and persisted
+locally, which reopened the downloader immediately. A one-file HS 2833 probe
+returned a normal `200` response with 194 rows, confirming that the earlier
+July 9 failures had been caused by missing credentials rather than by expired
+keys, quota exhaustion, or a Comtrade outage.
+
+The same continuation then stayed on HS 2833 until it was complete through
+March 2026. Including the opening one-file probe, the completed HS 2833 chunks
+returned 394 counted API calls, 377,200 new rows, 38 valid no-data files, one
+timeout, and repeated but non-terminal rate-limit responses in the late-2025
+/2026 tail. The merged HS 2833 bilateral import file increased from 111,731
+rows to 488,931 rows and its remaining gap count fell from 354 to zero.
+
+With HS 2833 closed, the run pivoted to HS 284610. An opening one-worker
+25-call chunk returned 25 counted API calls, 9,152 new rows, two valid no-data
+files, zero errors, and zero rate-limit responses. The merged HS 284610 file
+increased from 258 rows to 9,410 rows, and its remaining gap count fell from
+447 to 422.
+
+The closing July 9 audit reported 2,662 total downloader gaps: 1,318 in the
+main 31-product acquisition universe and 1,344 in excluded diagnostics HS
+380120, HS 2827, and broad HS 2617. The remaining main-universe queue is now
+HS 284610 (422), HS 280450 (448), and HS 284690 (448). Approximate counted API
+usage for this productive continuation was 419 successful/rate-limited
+requests. The run did not end by true quota exhaustion and did not end by API
+unreliability. It ended by a manual checkpoint while the API was still
+producing useful rows and valid no-data responses. At the new backlog, the
+optimistic remaining timeline is about 2 API days, a realistic near-term pace
+is about 4-6 days, and a pessimistic low-yield path is about 12-18 days. The
+next priority is HS 284610, then HS 280450, then HS 284690.
+
+Later that same run, continuing into just after midnight local time on July 10,
+2026, the downloader resumed from the restored-key state and continued until
+true exhaustion was visible across products. A fresh full audit opened at
+2,662 total downloader gaps: 1,318 in the main 31-product acquisition universe
+and 1,344 in excluded diagnostics. The live main-universe queue therefore
+began at HS 284610, then HS 280450, then HS 284690.
+
+The run spent the next useful block on HS 284610 with a one-worker 100-call
+chunk. That block remained productive through most of the run, then slowed into
+a late refusal tail. After a manual checkpoint and force-merge, the merged HS
+284610 file increased from 9,410 rows to 21,592 rows, and the remaining gap
+count fell from 422 to 337. The settled continuation gain on HS 284610 was
+12,182 rows and 85 closed reporter-year gaps, with approximately 91 counted
+API calls inside the interrupted 100-target block.
+
+To test whether the slowdown was product-specific or a true daily stop, the run
+then probed HS 280450 and HS 284690 with minimal one-worker chunks. HS 280450
+returned one counted API call with zero rows, zero valid no-data responses, and
+a terminal `failed_retries` status after the refusal cycle. HS 284690 then
+returned two counted API calls with zero rows, zero valid no-data responses,
+and `failed_retries` on both requests in the same process. That cross-product,
+cross-key refusal pattern meets the run rule for true exhaustion more closely
+than API unreliability: the endpoint remained reachable, but the calls stopped
+yielding usable responses and instead cycled through non-productive refusals.
+
+The closing audit after those exhaustion probes reported 2,577 total downloader
+gaps: 1,233 in the main 31-product acquisition universe and 1,344 in excluded
+diagnostics. The remaining main-universe queue is now HS 284610 (337), HS
+280450 (448), and HS 284690 (448). Approximate counted API usage for this
+late continuation was 94 calls: about 91 in the productive/interrupted
+HS 284610 block, one refusal probe on HS 280450, and two refusal probes on
+HS 284690. This continuation ended by true quota/refusal exhaustion rather
+than by API unreliability. At the new backlog, the optimistic remaining
+timeline is still about 2 API days, a realistic near-term pace is about 4-5
+days, and a pessimistic low-yield path is about 10-15 days. The next priority
+remains HS 284610, then HS 280450, then HS 284690 on the next quota window.
+
+Later on July 10, 2026, the automation resumed from that checkpoint with the
+required explicit Python path and a fresh full dry-run audit. That opening
+audit still showed 2,577 total downloader gaps, split into 1,233 gaps in the
+main 31-product acquisition universe and 1,344 gaps in excluded diagnostics HS
+380120, HS 2827, and broad HS 2617. The live main-universe queue therefore
+began at HS 284610 (337), then HS 280450 (448), then HS 284690 (448).
+
+The first HS 284610 probe remained low-yield. An interrupted one-worker chunk
+added only two persisted reporter-year files at first, and a later retry in
+the improved API window added only two more. After both force-merges, the
+merged HS 284610 file increased from 21,592 rows to 24,682 rows and its
+remaining gap count fell from 337 to 333. That behavior never crossed into a
+true quota wall, but it stayed too slow and uneven to justify spending the
+rest of the day there while another product was producing real progress.
+
+The productive center of the run was HS 280450. After one weak opening probe
+and one required cooldown, successive one-worker chunks closed the product
+through March 2026. The merged HS 280450 bilateral import file rose from no
+merged file at all to 40,516 rows, and the remaining gap count fell from 448
+to zero. Productive completed chunks on HS 280450 included a 25-target retry
+that delivered 23 counted calls and 2,327 rows, three straight 100-target
+chunks that delivered 100 counted calls each, a 28-file cleanup chunk, a
+6-file tail chunk, and a final 1-file no-data closeout. Across the full day,
+HS 280450 accounted for 391 counted calls by itself and was the only product
+that behaved like a normal usable Comtrade window for a sustained stretch.
+
+The final priority product, HS 284690, did not reopen. Two separate one-worker
+probes, one before a 10-minute cooldown and one after, both fell into the same
+non-productive pattern: roughly one counted call per minute, zero rows, zero
+valid no-data files, zero logged errors, no terminal 429 wall, and no
+persisted files to merge. Because that behavior persisted across retries
+without a cross-key refusal pattern strong enough to classify as true quota
+exhaustion, the run is best classified as ending because of API unreliability
+and endpoint unevenness rather than because the daily quota was clearly spent.
+
+The closing audit for this later July 10 continuation reports 2,125 total
+downloader gaps: 781 in the main 31-product acquisition universe and 1,344 in
+excluded diagnostics. The remaining main-universe queue is now HS 284690
+(448), then HS 284610 (333). Approximate counted API usage for the day was
+about 408 calls: roughly 391 on HS 280450, about 7 on the two interrupted HS
+284610 probes, about 7 on the two non-productive HS 284690 probes, and about 3
+on the initial low-yield HS 280450 opening probe. One main-universe product
+was fully completed today: HS 280450. At the new backlog, the optimistic
+remaining timeline is about 1 more strong API day, a realistic near-term pace
+is about 2-3 days, and a pessimistic low-yield path is about 5-8 days. The
+next priority remains HS 284610, then HS 284690.
+
+On July 11, 2026, the automation resumed with the required explicit Python
+path and a fresh full dry-run audit. That opening audit showed 2,125 total
+downloader gaps: 781 in the main 31-product acquisition universe and 1,344 in
+excluded diagnostics HS 380120, HS 2827, and broad HS 2617. All earlier
+priority products were already complete through March 2026, so the live
+main-universe queue had narrowed to HS 284610 first and HS 284690 second.
+
+The productive center of the run was HS 284610. Two completed 150-target
+one-worker chunks and one completed 67-file cleanup chunk pushed the merged HS
+284610 bilateral import file from 24,682 rows to 93,612 rows. The remaining
+gap count fell from 333 to 20. Across those completed cerium chunks, the
+downloader recorded 366 counted API calls, 68,930 new rows, 53 valid no-data
+responses, 1 logged error, and 53 reported rate-limit/refusal-cycle outcomes.
+The late-stage cerium tail then reverted to the sterile one-completion-per-
+minute pattern seen on the previous day, so the final partial cerium retry was
+interrupted and force-merged with no new saved files.
+
+HS 284690 opened productively at first but never stabilized after its first
+large pass. One completed 150-target one-worker chunk added 45,832 rows and 12
+valid no-data responses, cutting HS 284690 from 448 remaining gaps to 315.
+After that, the product repeatedly fell into sterile post-cooldown retries:
+roughly one completed request per minute, zero rows, zero valid no-data files,
+zero logged errors, and no clear 429 wall. Two cooldown cycles plus a final
+rotation back to cerium failed to restore productive behavior on either
+remaining main-universe product.
+
+The closing audit for July 11 reports 1,679 total downloader gaps: 335 in the
+main 31-product acquisition universe and 1,344 in excluded diagnostics. The
+remaining main-universe queue is now HS 284690 (315), then HS 284610 (20).
+Approximate counted API usage for the day was about 520-530 calls: 516 from
+the four completed productive chunks plus roughly a dozen sterile partial
+completions in the interrupted retries. No main-universe product fully closed
+today, but the run still eliminated 446 main-universe reporter-year gaps. The
+day ended because of extended API unreliability and non-closing behavior
+across both remaining products, not confirmed true quota exhaustion. At the new
+backlog, the optimistic remaining timeline is about 1 more strong API day, a
+realistic near-term pace is about 2 days, and a pessimistic low-yield path is
+about 4-7 days. The next priority remains HS 284610, then HS 284690.
+
+On July 12, 2026, the automation resumed with the required explicit Python
+path and a fresh full dry-run audit. That opening audit again showed 1,679
+total downloader gaps: 335 in the main 31-product acquisition universe and
+1,344 in excluded diagnostics HS 380120, HS 2827, and broad HS 2617. All
+earlier priority products were already complete through March 2026, so only
+HS 284610 and HS 284690 remained in the live main-universe queue.
+
+The run fully closed the planned 31-product universe in one sustained session.
+HS 284610 was taken from 20 remaining gaps to zero, and its merged bilateral
+import file increased from 93,612 rows to 94,308 rows. HS 284690 was then
+taken from 315 remaining gaps to zero, and its merged bilateral import file
+increased from 45,832 rows to 136,050 rows. Across the full day, the
+downloader recorded 391 counted API calls, 90,914 new rows, 58 valid no-data
+responses, zero logged errors, and repeated but non-terminal rate-limit/
+refusal-cycle outcomes during several tail chunks.
+
+The closing audit for July 12 reports 1,344 total downloader gaps, all in the
+excluded diagnostics HS 380120, HS 2827, and broad HS 2617. The main
+31-product acquisition universe now has zero remaining gaps through March
+2026. The run ended by objective completion, not by true quota exhaustion and
+not by API unreliability. For the planned universe, the optimistic, realistic,
+and pessimistic remaining timelines are all zero days. No remaining
+main-universe priority product is left.
+
+On July 13, 2026, the automation ran the required full dry-run audit before
+attempting any new calls:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --batch all --through 202603 --dry-run
+```
+
+The audit again reported 1,344 total downloader gaps, all in the excluded
+diagnostics HS 380120, HS 2827, and broad HS 2617. The main 31-product
+acquisition universe remained fully complete through March 2026 with zero
+remaining gaps, so the automation correctly made no additional download
+attempts and consumed approximately zero counted API calls today.
+
+The completed main-universe merged bilateral row counts are unchanged: HS 8110
+(49,396), HS 261710 (9,134), HS 282580 (74,910), HS 2504 (157,995), HS 811292
+(73,408), HS 282560 (91,369), HS 2818 (406,561), HS 8111 (88,288), HS 2811
+(680,018), HS 3801 (311,474), HS 8106 (56,196), HS 284180 (41,003), HS 8101
+(298,432), HS 2615 (75,088), HS 284170 (105,418), HS 811221 (65,314), HS
+380130 (75,309), HS 282530 (28,858), HS 282520 (51,644), HS 282570 (40,217),
+HS 8103 (90,354), HS 8108 (584,113), HS 8109 (90,580), HS 8104 (243,194), HS
+8105 (225,694), HS 282110 (250,828), HS 2820 (101,279), HS 2833 (488,931), HS
+284610 (94,308), HS 280450 (40,516), and HS 284690 (136,050).
+
+The stop reason for July 13 is still objective completion of the planned
+universe, not true quota exhaustion and not API unreliability. Estimated days
+left for the planned 31-product universe remain zero under optimistic,
+realistic, and pessimistic assumptions. If excluded diagnostics are ever
+reactivated, the remaining backlog is unchanged at 448 gaps each for HS
+380120, HS 2827, and broad HS 2617.
 
 HS 2501 remains excluded because bilateral coverage is too sparse. It should
 not be described as a rare-earth case. HS 3801 is not a valid untreated

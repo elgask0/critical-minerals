@@ -1,7 +1,7 @@
 # Data Download Checklist
 
 This is the only operational acquisition checklist. Coverage truth is in
-`01_notes/Data.md`. Last updated July 8, 2026.
+`01_notes/Data.md`. Last updated July 13, 2026.
 
 ## UN Comtrade API
 
@@ -1003,40 +1003,627 @@ quota-reset header, and no sustained `429` wall. The day ended by severe API
 unreliability and very low throughput after the HS 2820 cleanup. The next
 priority remains HS 2833, then HS 284610, then HS 280450, and finally
 HS 284690.
-also did not end because of sterile API unreliability. It ended by a manual
-checkpoint while the API was still producing useful rows and valid no-data
-responses.
 
-Closing audit:
+On July 9, 2026, the automation resumed from that July 8 close with the
+required explicit Python path and the standard full audit:
 
 ```bash
 /Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
   --batch all --through 202603 --dry-run
 ```
 
-Settled final July 7 gap counts:
+Opening July 9 gap counts:
 
-- Main 31-product universe: 1,706
+- Main 31-product universe: 1,697
 - Excluded diagnostics HS 380120, HS 2827, and broad HS 2617: 1,344
-- Total downloader universe: 3,050
+- Total downloader universe: 3,041
 
-Current remaining main-universe queue:
+All earlier priority products above HS 2833 remained complete, so the live
+main-universe queue stayed HS 2833, HS 284610, HS 280450, and HS 284690.
 
-- HS 2820: 3
-- HS 2833: 359
-- HS 284610: 448
+The run attempted to reopen HS 2833 with a conservative one-worker chunk:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 2833 --through 202603 --max-calls 50 --workers 1
+```
+
+Settled HS 2833 state after that completed zero-call chunk:
+
+- merged rows: 111,731
+- remaining gaps: 354
+- net gain in this July 9 run: 0 rows and 0 closed reporter-year gaps
+
+Observed completed-chunk details for HS 2833:
+
+- 0 counted API calls, 0 rows, 0 valid no-data responses, 0 errors, and
+  0 rate-limit responses
+
+The zero-call result was not a product-level slowdown. A direct credential
+audit showed that the automation shell had no `COMTRADE_API_KEYS`,
+`COMTRADE_API_KEY`, `COMTRADE_API_KEY_1`, or `COMTRADE_API_KEY_2` configured,
+and `/Users/elgask0/miniconda/bin/python` raised:
+
+```text
+RuntimeError: No Comtrade API key configured. Set COMTRADE_API_KEYS or COMTRADE_API_KEY_1/COMTRADE_API_KEY_2 before running downloads.
+```
+
+The final July 9 audit was:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --batch all --through 202603 --dry-run
+```
+
+Closing July 9 gap counts:
+
+- Main 31-product universe: 1,697
+- Excluded diagnostics HS 380120, HS 2827, and broad HS 2617: 1,344
+- Total downloader universe: 3,041
+
+Remaining main-universe queue after the July 9 run:
+
+- HS 2833: 354
+- HS 284610: 447
 - HS 280450: 448
 - HS 284690: 448
 
-Estimated days left from this point:
+Approximate observed counted usage for July 9 was zero successful downloader
+calls. The stop condition was not true quota exhaustion and not API
+unreliability. The run ended because the execution environment was missing
+Comtrade credentials entirely, so no further downloader chunk could reach the
+API until `COMTRADE_API_KEYS` or `COMTRADE_API_KEY_1`/`COMTRADE_API_KEY_2` is
+restored. The next priority remains HS 2833, then HS 284610, then HS 280450,
+and finally HS 284690 once credentials are available again.
 
-- optimistic: about 2 days at roughly 900-1,000 useful calls per day
-- realistic: about 5-7 days at roughly 250-350 useful calls per day
-- pessimistic: about 15-22 days at roughly 80-120 useful calls per day
+Later on July 9, 2026, the automation reran the same audit and confirmed that
+the blocker still sat upstream of the API:
 
-The next run should finish the last HS 2820 gaps first, then continue HS 2833,
-HS 284610, HS 280450, and HS 284690. Excluded diagnostics HS 380120, HS 2827,
-and broad HS 2617 remain outside the main-acquisition completion target.
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --batch all --through 202603 --dry-run
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 2833 --through 202603 --max-calls 75 --workers 1
+```
+
+The dry run again reported 1,697 remaining gaps in the main 31-product
+universe and 1,344 in excluded diagnostics, for 3,041 total downloader gaps.
+The second HS 2833 probe again completed with 0 counted API calls, 0 rows, 0
+valid no-data responses, 0 errors, and 0 rate-limit responses, leaving HS
+2833 unchanged at 111,731 merged rows and 354 remaining gaps. Additional
+checks found no Comtrade credential wiring in the repository, `~/.zshrc`,
+`~/.zprofile`, or recent Codex shell snapshots, so the environment still could
+not provide `COMTRADE_API_KEYS`, `COMTRADE_API_KEY`, `COMTRADE_API_KEY_1`, or
+`COMTRADE_API_KEY_2`.
+
+No products advanced in this follow-up July 9 rerun and observed counted API
+usage remained zero. The stop condition again was missing credentials, not
+quota exhaustion and not API unreliability. Estimated days left therefore
+remain unchanged at roughly 2 optimistic API days, 7-10 realistic days, or
+30-40 pessimistic days once credentials are restored. The next priority
+remains HS 2833, then HS 284610, then HS 280450, and finally HS 284690.
+
+Another retry later on July 9, 2026 confirmed the same blocker with the
+smallest possible live probe:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --batch all --through 202603 --dry-run
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 2833 --through 202603 --max-calls 1 --workers 1
+```
+
+The full audit again reported 3,041 total downloader gaps. The one-file HS
+2833 probe again finished with 0 counted API calls, 0 rows, 0 valid no-data
+responses, 0 errors, and 0 rate-limit responses, so the merged HS 2833 file
+stayed at 111,731 rows with 354 remaining gaps. A direct loader check still
+raised `RuntimeError: No Comtrade API key configured`, and the shell still had
+none of `COMTRADE_API_KEYS`, `COMTRADE_API_KEY`, `COMTRADE_API_KEY_1`, or
+`COMTRADE_API_KEY_2`. No products advanced and observed counted API usage
+remained zero. This retry again ended because credentials were absent before
+the first request, not because of quota exhaustion or API unreliability.
+
+Later on July 9, 2026, the missing-credential blocker was cleared and the
+downloader resumed real API work immediately. The local credential source was
+restored and persisted outside the repository, after which the smallest live
+HS 2833 probe returned a normal `200` response with 194 rows and no errors.
+
+The productive continuation then used these completed commands on HS 2833:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 2833 --through 202603 --max-calls 100 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 2833 --through 202603 --max-calls 100 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 2833 --through 202603 --max-calls 75 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 2833 --through 202603 --max-calls 50 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 2833 --through 202603 --max-calls 50 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 2833 --through 202603 --max-calls 25 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 2833 --through 202603 --max-calls 10 --workers 1
+```
+
+Settled HS 2833 results after those chunks:
+
+- merged rows: 488,931
+- remaining gaps: 0
+- net gain in this continuation: 377,200 rows and 354 closed reporter-year gaps
+
+Observed completed-chunk details on HS 2833:
+
+- 394 counted API calls
+- 377,200 new rows
+- 38 valid no-data responses
+- 1 timeout
+- repeated but non-terminal rate-limit responses in the late-period tail
+
+With HS 2833 complete, the same continuation opened HS 284610 with:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284610 --through 202603 --max-calls 25 --workers 1
+```
+
+Settled HS 284610 state after that opening chunk:
+
+- merged rows: 9,410
+- remaining gaps: 422
+- net gain in this continuation: 9,152 rows and 25 closed reporter-year gaps
+
+Observed completed-chunk details on HS 284610:
+
+- 25 counted API calls
+- 9,152 new rows
+- 2 valid no-data responses
+- 0 errors
+- 0 rate-limit responses
+
+The closing July 9 audit was:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --batch all --through 202603 --dry-run
+```
+
+Closing July 9 gap counts after credential restoration:
+
+- Main 31-product universe: 1,318
+- Excluded diagnostics HS 380120, HS 2827, and broad HS 2617: 1,344
+- Total downloader universe: 2,662
+
+Remaining main-universe queue after the productive continuation:
+
+- HS 284610: 422
+- HS 280450: 448
+- HS 284690: 448
+
+Approximate observed counted usage for this productive continuation was 419
+successful/rate-limited downloader calls. The stop condition was not true
+quota exhaustion and not API unreliability. The run ended by a manual
+checkpoint while the API was still producing useful rows and valid no-data
+responses. Estimated days left at this point are about 2 optimistic API days,
+4-6 realistic days, or 12-18 pessimistic days. The next priority is HS 284610,
+then HS 280450, then HS 284690.
+
+Later in the same run, continuing into just after midnight local time on
+July 10, 2026, the downloader resumed from that restored-key checkpoint and
+kept going until the refusal pattern crossed into true exhaustion territory.
+The opening audit for this continuation was:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --batch all --through 202603 --dry-run
+```
+
+Opening gap counts for the late continuation:
+
+- Main 31-product universe: 1,318
+- Excluded diagnostics HS 380120, HS 2827, and broad HS 2617: 1,344
+- Total downloader universe: 2,662
+
+The main productive command was:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284610 --through 202603 --max-calls 100 --workers 1
+```
+
+That HS 284610 chunk was manually stopped once it entered a non-productive late
+tail, and the touched files were then force-merged with the downloader's
+`merge_all` helper. Settled HS 284610 state after the checkpoint:
+
+- merged rows: 21,592
+- remaining gaps: 337
+- net gain in this late continuation: 12,182 rows and 85 closed reporter-year gaps
+
+Observed settled details from the interrupted HS 284610 chunk:
+
+- approximately 91 counted API calls
+- 12,182 new rows
+- 13 valid no-data responses
+- 0 logged errors
+- a late sequence of non-productive refusals consistent with `failed_retries`
+
+To distinguish product-tail slowdown from true daily exhaustion, the run then
+used these minimal cross-product probes:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 280450 --through 202603 --max-calls 1 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284690 --through 202603 --max-calls 2 --workers 1
+```
+
+Settled exhaustion-probe results:
+
+- HS 280450: 1 counted API call, 0 rows, 0 valid no-data responses, 0 errors,
+  `Status failed_retries: 1`, no persisted files, 448 gaps remain.
+- HS 284690: 2 counted API calls, 0 rows, 0 valid no-data responses, 0 errors,
+  `Status failed_retries: 2`, no persisted files, 448 gaps remain.
+
+Because those refusal probes hit across products and across both keys in the
+same process while the endpoint itself remained reachable, this late
+continuation is best classified as ending by true quota/refusal exhaustion
+rather than by API unreliability.
+
+The closing audit for the late continuation was:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --batch all --through 202603 --dry-run
+```
+
+Closing gap counts after the late continuation:
+
+- Main 31-product universe: 1,233
+- Excluded diagnostics HS 380120, HS 2827, and broad HS 2617: 1,344
+- Total downloader universe: 2,577
+
+Remaining main-universe queue after the late continuation:
+
+- HS 284610: 337
+- HS 280450: 448
+- HS 284690: 448
+
+Approximate observed counted usage for this late continuation was 94 calls:
+about 91 in the productive/interrupted HS 284610 block, one refusal probe on
+HS 280450, and two refusal probes on HS 284690. Estimated days left at this
+point are about 2 optimistic API days, 4-5 realistic days, or 10-15
+pessimistic days. The next priority remains HS 284610, then HS 280450, then
+HS 284690 once the next quota window opens.
+
+Later on July 10, 2026, the automation resumed again with the required
+explicit Python path and reopened from that same 2,577-gap checkpoint:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --batch all --through 202603 --dry-run
+```
+
+Opening gap counts for this later July 10 continuation:
+
+- Main 31-product universe: 1,233
+- Excluded diagnostics HS 380120, HS 2827, and broad HS 2617: 1,344
+- Total downloader universe: 2,577
+
+The run first tested HS 284610 again:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284610 --through 202603 --max-calls 150 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284610 --through 202603 --max-calls 100 --workers 1
+```
+
+Both HS 284610 chunks were manually stopped and force-merged because the
+product stayed in a low-yield pattern without a clean quota wall. Settled
+state after both interrupted probes:
+
+- merged rows: 24,682
+- remaining gaps: 333
+- net gain in this later continuation: 3,090 rows and 4 closed reporter-year gaps
+- approximate counted usage on HS 284610 today: about 7 calls
+
+The productive center of the run was HS 280450. After one weak opening probe,
+a 10-minute cooldown, and a small retry that showed real rows again, the run
+kept the same product open and scaled into larger chunks:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 280450 --through 202603 --max-calls 50 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 280450 --through 202603 --max-calls 25 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 280450 --through 202603 --max-calls 100 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 280450 --through 202603 --max-calls 100 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 280450 --through 202603 --max-calls 150 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 280450 --through 202603 --max-calls 50 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 280450 --through 202603 --max-calls 10 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 280450 --through 202603 --max-calls 1 --workers 1
+```
+
+Settled HS 280450 result:
+
+- merged rows: 40,516
+- remaining gaps: 0
+- one main-universe product completed through March 2026
+- approximate counted usage on HS 280450 today: about 391 calls
+
+The productive completed chunks on HS 280450 yielded:
+
+- 23 counted calls, 2,327 rows, 1 valid no-data file, and 2 timeouts in the
+  first successful 25-target retry after cooldown
+- 100 counted calls, 8,230 rows, 23 valid no-data files, 0 logged errors, and
+  2 rate-limit retries in the next 100-target chunk
+- 100 counted calls, 11,083 rows, 16 valid no-data files, 0 logged errors,
+  and 3 rate-limit retries in the following 100-target chunk
+- 100 counted calls, 8,847 rows, 17 valid no-data files, 0 logged errors, and
+  9 rate-limit retries in the third 100-target chunk
+- 133 counted calls, 8,589 rows, 35 valid no-data files, 0 logged errors, and
+  28 rate-limit retries in the 133-file finish attempt
+- 28 counted calls, 648 rows, 11 valid no-data files, and 6 rate-limit
+  retries in the cleanup pass
+- 6 counted calls, 97 rows, and 1 rate-limit retry in the six-file tail
+- 1 counted call and a final valid no-data closeout on the last remaining file
+
+The run then tested HS 284690 twice, once before and once after a 10-minute
+cooldown:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284690 --through 202603 --max-calls 50 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284690 --through 202603 --max-calls 25 --workers 1
+```
+
+Both HS 284690 probes were manually stopped and force-merged because they
+remained non-productive. In both passes, counted requests advanced at about
+one per minute but produced zero rows, zero valid no-data files, zero logged
+errors, and no persisted files to merge. Settled state after both probes:
+
+- merged file: still absent
+- remaining gaps: 448
+- approximate counted usage on HS 284690 today: about 7 calls
+
+Because the late-day blocker was this uneven no-state behavior rather than a
+clear 429 wall or persistent cross-key quota refusals, this continuation ended
+because of API unreliability, not confirmed true quota exhaustion.
+
+Closing audit for this later July 10 continuation:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --batch all --through 202603 --dry-run
+```
+
+Closing gap counts after this later July 10 continuation:
+
+- Main 31-product universe: 781
+- Excluded diagnostics HS 380120, HS 2827, and broad HS 2617: 1,344
+- Total downloader universe: 2,125
+
+Remaining main-universe queue after this later July 10 continuation:
+
+- HS 284690: 448
+- HS 284610: 333
+
+Approximate observed counted usage for this later July 10 continuation was
+about 408 calls. Estimated days left at this point are about 1 optimistic API
+day, 2-3 realistic days, or 5-8 pessimistic days. The next priority is HS
+284610, then HS 284690.
+
+On July 11, 2026, the automation resumed from that checkpoint with the
+required explicit Python path and the mandatory full dry-run audit:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --batch all --through 202603 --dry-run
+```
+
+Opening gap counts for July 11:
+
+- Main 31-product universe: 781
+- Excluded diagnostics HS 380120, HS 2827, and broad HS 2617: 1,344
+- Total downloader universe: 2,125
+
+Only two main-universe products remained in scope: HS 284610 (333) and
+HS 284690 (448). The run therefore stayed on HS 284610 first.
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284610 --through 202603 --max-calls 150 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284610 --through 202603 --max-calls 150 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284610 --through 202603 --max-calls 75 --workers 1
+```
+
+Settled HS 284610 result after the three completed chunks:
+
+- merged rows: 93,612
+- remaining gaps: 20
+- net gain: 68,930 rows and 313 closed reporter-year gaps
+- completed-chunk usage: 366 counted API calls, 53 valid no-data files,
+  1 logged error, and 53 rate-limit/refusal-cycle outcomes
+
+The final short cerium retry then stalled in the sterile one-completion-per-
+minute pattern with no saved rows or valid `skip` files, so it was interrupted
+and force-merged:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284610 --through 202603 --max-calls 25 --workers 1
+/Users/elgask0/miniconda/bin/python -c 'from pathlib import Path; import sys; sys.path.insert(0, str(Path("04_scripts").resolve())); import download_all_gaps as d; d.merge_all(["284610"])'
+```
+
+The run then moved to HS 284690. Its first large chunk was still productive:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284690 --through 202603 --max-calls 150 --workers 1
+```
+
+Settled HS 284690 result after the productive chunk:
+
+- merged rows: 45,832
+- remaining gaps: 315
+- net gain: 45,832 rows and 133 closed reporter-year gaps
+- completed-chunk usage: 150 counted API calls, 12 valid no-data files,
+  0 logged errors, and 2 rate-limit responses
+
+After that first chunk, HS 284690 repeatedly failed to reopen productively.
+The automation followed the persistence rules exactly: interrupt, force-merge,
+wait 10 minutes, retry with a smaller chunk, and repeat once more before
+rotating away:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284690 --through 202603 --max-calls 150 --workers 1
+/Users/elgask0/miniconda/bin/python -c 'from pathlib import Path; import sys; sys.path.insert(0, str(Path("04_scripts").resolve())); import download_all_gaps as d; d.merge_all(["284690"])'
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284690 --through 202603 --max-calls 50 --workers 1
+/Users/elgask0/miniconda/bin/python -c 'from pathlib import Path; import sys; sys.path.insert(0, str(Path("04_scripts").resolve())); import download_all_gaps as d; d.merge_all(["284690"])'
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284690 --through 202603 --max-calls 25 --workers 1
+/Users/elgask0/miniconda/bin/python -c 'from pathlib import Path; import sys; sys.path.insert(0, str(Path("04_scripts").resolve())); import download_all_gaps as d; d.merge_all(["284690"])'
+```
+
+Those post-productive retries all showed the same non-quota pattern: roughly
+one completed request per minute, zero rows, zero valid no-data responses,
+zero logged errors, and no clear 429 wall. A final rotation back to a tiny
+HS 284610 retry showed the same sterile behavior. Because neither remaining
+main-universe product could produce counted useful outcomes after repeated
+cooldowns, the run stopped on extended API unreliability rather than confirmed
+true quota exhaustion.
+
+Closing audit for July 11:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --batch all --through 202603 --dry-run
+```
+
+Closing gap counts after July 11:
+
+- Main 31-product universe: 335
+- Excluded diagnostics HS 380120, HS 2827, and broad HS 2617: 1,344
+- Total downloader universe: 1,679
+
+Remaining main-universe queue after July 11:
+
+- HS 284610: 20
+- HS 284690: 315
+
+Approximate observed counted usage for July 11 was about 520-530 calls. That
+includes 516 counted calls from the four completed productive chunks plus
+roughly a dozen sterile partial completions from the interrupted retries. The
+day closed 446 main-universe reporter-year gaps but did not fully complete a
+product. The stop reason is extended API unreliability, not confirmed quota
+exhaustion. Immediate next priority: retry HS 284610 first, then return to
+HS 284690.
+
+On July 12, 2026, the automation resumed from that checkpoint with the
+required explicit Python path and the mandatory full dry-run audit:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --batch all --through 202603 --dry-run
+```
+
+Opening gap counts for July 12:
+
+- Main 31-product universe: 335
+- Excluded diagnostics HS 380120, HS 2827, and broad HS 2617: 1,344
+- Total downloader universe: 1,679
+
+Only two main-universe products remained in scope: HS 284610 (20) and
+HS 284690 (315). All earlier priority products were already complete, so the
+run stayed on those two products until the main universe closed.
+
+Completed productive chunks:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284610 --through 202603 --max-calls 25 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284690 --through 202603 --max-calls 150 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284610 --through 202603 --max-calls 10 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284690 --through 202603 --max-calls 173 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284690 --through 202603 --max-calls 40 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284610 --through 202603 --max-calls 5 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284690 --through 202603 --max-calls 10 --workers 1
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 284610,284690 --through 202603 --max-calls 5 --workers 1
+```
+
+Settled product results after the July 12 run:
+
+- HS 284610: merged rows increased from 93,612 to 94,308 and remaining gaps
+  fell from 20 to 0.
+- HS 284690: merged rows increased from 45,832 to 136,050 and remaining gaps
+  fell from 315 to 0.
+
+Closing audit for July 12:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 8110,261710,282580,2504,811292,282560,2818,8111,2811,3801,8106,284180,8101,2615,284170,811221,380130,282530,282520,282570,8103,8108,8109,8104,8105,282110,2820,2833,284610,280450,284690 \
+  --through 202603 --dry-run
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --products 380120,2827,2617 --through 202603 --dry-run
+```
+
+Closing gap counts after July 12:
+
+- Main 31-product universe: 0
+- Excluded diagnostics HS 380120, HS 2827, and broad HS 2617: 1,344
+- Total downloader universe: 1,344
+
+Approximate observed counted usage for July 12 was 391 API calls. The run
+added 90,914 rows, saved 58 valid no-data responses, logged zero errors, and
+fully completed the planned 31-product acquisition universe through March
+2026. The stop reason is objective completion, not true quota exhaustion and
+not API unreliability. Estimated days left for the planned universe are 0
+optimistic, 0 realistic, and 0 pessimistic. There is no remaining
+main-universe priority; only the excluded diagnostics remain if they are ever
+explicitly resumed.
+
+On July 13, 2026, the automation opened with the mandatory completion audit and
+did not download further because the planned universe was already closed:
+
+```bash
+/Users/elgask0/miniconda/bin/python 04_scripts/download_all_gaps.py \
+  --batch all --through 202603 --dry-run
+```
+
+Opening and closing gap counts for July 13 were identical:
+
+- Main 31-product universe: 0
+- Excluded diagnostics HS 380120, HS 2827, and broad HS 2617: 1,344
+- Total downloader universe: 1,344
+
+No additional products were touched. Approximate counted API usage for July 13
+was zero calls because the audit confirmed that the objective was already met.
+The stop reason is objective completion, not true quota exhaustion and not API
+unreliability. Estimated days left for the planned universe remain 0
+optimistic, 0 realistic, and 0 pessimistic. If excluded diagnostics are ever
+resumed, the backlog remains HS 380120 (448), HS 2827 (448), and HS 2617
+(448); otherwise there is no next priority inside the planned 31-product
+scope.
 
 On June 30, 2026, the automation resumed with the required explicit Python
 path and full dry-run audit:
