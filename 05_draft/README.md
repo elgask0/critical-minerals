@@ -15,10 +15,11 @@ Contains the completed term-paper LaTeX source and generated table/figure inputs
 
 Active workspace for the ZJU master thesis proposal / opening report.
 
-Post-defense note: the current proposal files may predate the final
-pressure-mechanism revision. Before submitting a revised proposal, align the
-theory, data, empirical strategy, and preliminary evidence with
-`01_notes/Post-Defense Thesis Plan.md`.
+Post-defense note: `main.tex` (2026-07-04) already contains the
+post-defense pressure-mechanism revision (switching and compression pressure).
+The compiled PDF is archived as
+`06_output/submitted/2026-07-04_proposal_revised_final.pdf`; the earlier
+defense version is `06_output/submitted/2026-06-28_proposal_defense_version.pdf`.
 
 All proposal writing and formatting must follow:
 
