@@ -64,6 +64,11 @@ The active master thesis proposal source is:
 05_draft/proposal/main.tex
 ```
 
+The submitted proposal (2026-07-04, 36 pages) is archived locally as
+`06_output/submitted/2026-07-04_proposal_revised_final.pdf`. It was verified on
+2026-10-15 against the copy downloaded from the submission system: identical
+file, and a fresh Tectonic build of `main.tex` reproduces the same text.
+
 All proposal writing and thesis-facing LaTeX material must follow:
 
 ```text
