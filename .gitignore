@@ -65,3 +65,6 @@ results/
 06_slides/rendered*/
 # Vault link note
 .project_link
+
+# Third-party reference material (Yanne proposal and slides): keep local only
+07_misc/*[Yy]anne*
