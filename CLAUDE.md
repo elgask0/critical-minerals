@@ -26,7 +26,7 @@ about branches or commits.
   equal to `origin/main`, no stray branches, stashes, or worktrees.
 - The repo is **public**. Never commit API keys, `.env` files, raw or processed
   data, literature PDFs, compiled PDFs, submitted files, or third-party
-  documents (e.g. the Yanne reference proposal and slides in `07_misc/`). These
+  documents (everything in `07_misc/reference_theses/`). These
   are already covered by `.gitignore`; do not force-add them.
 - Never rewrite history or force-push unless the owner asks for it.
 
@@ -36,4 +36,5 @@ about branches or commits.
 - Submitted proposal PDF (local only):
   `06_output/submitted/2026-07-04_proposal_revised_final.pdf`.
 - Current plan: `NEXT_STEPS.md` and `01_notes/Post-Defense Thesis Plan.md`.
-- Reference proposal and defense slides from Yanne (local only): `07_misc/`.
+- Benchmark theses, proposal and defense slides from other ZJU students (local
+  only, never commit or quote at length): `07_misc/reference_theses/`.

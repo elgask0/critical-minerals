@@ -67,5 +67,6 @@ results/
 # Vault link note
 .project_link
 
-# Third-party reference material (Yanne proposal and slides): keep local only
+# Third-party reference theses, proposals and slides: keep local only
+07_misc/reference_theses/
 07_misc/*[Yy]anne*
