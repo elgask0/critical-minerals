@@ -37,10 +37,10 @@ Main design:
 Run from the repository root:
 
 ```bash
-python 04_scripts/build_product_scope_metadata.py
-python 04_scripts/prepare_comtrade_pressure_panel.py
-python 04_scripts/build_pressure_indices.py
-python 04_scripts/build_pressure_estimation_panel.py
+uv run python 04_scripts/build_product_scope_metadata.py
+uv run python 04_scripts/prepare_comtrade_pressure_panel.py
+uv run python 04_scripts/build_pressure_indices.py
+uv run python 04_scripts/build_pressure_estimation_panel.py
 ```
 
 Main processed outputs:
@@ -83,18 +83,18 @@ Secondary products:
 Run the current preliminary results package:
 
 ```bash
-python 04_scripts/diagnose_pressure_indices.py
-python 04_scripts/diagnose_anchor_quarter_models.py
-python 04_scripts/estimate_quarterly_pressure_mechanisms.py
-python 04_scripts/estimate_price_wedges.py
+uv run python 04_scripts/diagnose_pressure_indices.py
+uv run python 04_scripts/diagnose_anchor_quarter_models.py
+uv run python 04_scripts/estimate_quarterly_pressure_mechanisms.py
+uv run python 04_scripts/estimate_price_wedges.py
 ```
 
 Current source-contrast and robustness scripts:
 
 ```bash
-python 04_scripts/estimate_pressure_ppml_by_wave.py
-python 04_scripts/estimate_pressure_ppml_by_product.py
-python 04_scripts/estimate_pressure_timing_robustness.py
+uv run python 04_scripts/estimate_pressure_ppml_by_wave.py
+uv run python 04_scripts/estimate_pressure_ppml_by_product.py
+uv run python 04_scripts/estimate_pressure_timing_robustness.py
 ```
 
 Important output tables:
@@ -141,9 +141,9 @@ or coercive political success.
 The old term-paper pipeline remains reproducible:
 
 ```bash
-python 04_scripts/prepare_comtrade_thesis_panel.py
-python 04_scripts/prepare_eurostat_cn8.py
-python 04_scripts/analysis_thesis.py
+uv run python 04_scripts/prepare_comtrade_thesis_panel.py
+uv run python 04_scripts/prepare_eurostat_cn8.py
+uv run python 04_scripts/analysis_thesis.py
 ```
 
 Use it only for provenance and archived preliminary evidence. It is not the

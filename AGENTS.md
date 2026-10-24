@@ -2,26 +2,20 @@
 
 ## Project Environment
 
-This project uses system Python (miniconda) plus a repository-local prefix for
-`pyfixest`.
-
-Before running Python scripts:
+This project uses a repository-local uv environment (`.venv`, Python 3.12).
+Dependencies are pinned in `pyproject.toml` and locked in `uv.lock`; the pins
+match the versions the pipeline ran with before the uv migration, so results
+stay reproducible.
 
 ```bash
 cd <repo-root>
-python 04_scripts/prepare_comtrade_thesis_panel.py
-python 04_scripts/prepare_eurostat_cn8.py
-python 04_scripts/analysis_thesis.py
+uv sync                      # create or refresh .venv (add --all-groups for Jupyter)
+uv run python 04_scripts/build_pressure_estimation_panel.py
 ```
 
-If a local environment is needed in the future:
-
-```bash
-bash 04_scripts/setup_environment.sh
-conda activate ./.conda
-```
-
-Do not use the base Conda environment for install commands without `--prefix`.
+Add or change a dependency with `uv add <package>` (it updates `pyproject.toml`
+and `uv.lock`). Do not install into any global or base Python. The legacy
+`./.conda` pip prefix is gone; the scripts' `sys.path` fallback to it is inert.
 
 ## Project Structure
 

@@ -42,13 +42,14 @@ channel, but it should not be the headline unless later estimates improve.
 
 ```bash
 cd /Users/elgask0/REPOS/critical-minerals
-python 04_scripts/build_product_scope_metadata.py
-python 04_scripts/prepare_comtrade_pressure_panel.py
-python 04_scripts/build_pressure_indices.py
-python 04_scripts/build_pressure_estimation_panel.py
-python 04_scripts/diagnose_anchor_quarter_models.py
-python 04_scripts/estimate_quarterly_pressure_mechanisms.py
-python 04_scripts/estimate_price_wedges.py
+uv sync
+uv run python 04_scripts/build_product_scope_metadata.py
+uv run python 04_scripts/prepare_comtrade_pressure_panel.py
+uv run python 04_scripts/build_pressure_indices.py
+uv run python 04_scripts/build_pressure_estimation_panel.py
+uv run python 04_scripts/diagnose_anchor_quarter_models.py
+uv run python 04_scripts/estimate_quarterly_pressure_mechanisms.py
+uv run python 04_scripts/estimate_price_wedges.py
 ```
 
 `analysis_thesis.py` reproduces the archived term-paper-style results.
